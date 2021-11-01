@@ -1,7 +1,9 @@
 package com.db.edu;
 
 import com.db.edu.commands.Parser;
+import com.db.edu.storage.CustomFileReader;
 import com.db.edu.storage.FileSaver;
+import com.db.edu.storage.Reader;
 import com.db.edu.storage.Saver;
 
 import java.io.*;
@@ -17,6 +19,7 @@ public class Server {
         Parser parser = new Parser();
         Saver saver = new FileSaver();
         Notifier notifier = new Notifier();
+        Reader reader = new CustomFileReader();
         try {
             final ServerSocket listener = new ServerSocket(9999);
             while (true) {
@@ -41,7 +44,7 @@ public class Server {
                         try {
                             final String commandString = input.readUTF();
                             System.out.println("Got from client: " + commandString);
-                            parser.parse(commandString).execute(saver, notifier);
+                            parser.parse(commandString).execute(saver, reader, notifier);
                         } catch (IOException exception) {
                             exception.printStackTrace();
                         } catch(IllegalArgumentException exception) {

@@ -2,6 +2,7 @@ package com.db.edu.commands;
 
 import com.db.edu.Message;
 import com.db.edu.Notifier;
+import com.db.edu.storage.Reader;
 import com.db.edu.storage.Saver;
 
 import java.time.Instant;
@@ -18,7 +19,7 @@ public class SendMessageCommand implements ChatCommand {
     }
 
     @Override
-    public void execute(Saver saver, Notifier notifier) {
+    public void execute(Saver saver, Reader reader, Notifier notifier) {
         saver.save(message.toString());
         notifier.sendMessage(message);
     }

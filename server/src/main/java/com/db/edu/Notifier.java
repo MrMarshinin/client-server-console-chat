@@ -46,5 +46,18 @@ public class Notifier {
         });
 
     }
+    public void sendMessage(String message) {
+        out.forEach((DataOutputStream out) -> {
+            try {
+                out.writeUTF(message);
+                out.flush();
+                System.out.println("Sent message: " + message);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Couldn't send message to clients");
+            }
+        } );
+
+    }
 
 }
