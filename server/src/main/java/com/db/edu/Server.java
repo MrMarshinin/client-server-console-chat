@@ -5,6 +5,7 @@ import com.db.edu.commands.Parser;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.io.IOException;
 
 public class Server {
     public static void main(String[] args) {
