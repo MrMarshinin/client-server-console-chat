@@ -1,8 +1,10 @@
 package com.db.edu;
 
 import com.db.edu.commands.Parser;
+import com.db.edu.storage.CustomFileReader;
 import com.db.edu.storage.FileSaver;
 import com.db.edu.storage.Saver;
+import com.db.edu.storage.Reader;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -23,6 +25,7 @@ public class Server {
                         Parser parser = new Parser();
 
                         Saver saver = new FileSaver();
+                        Reader reader = new CustomFileReader();
                         Notifier notifier = new Notifier(out);
 
                         while (true) {
@@ -30,10 +33,10 @@ public class Server {
                             System.out.println("Got from client: " + commandString);
 
                             try {
-                                parser.parse(commandString).execute(saver, notifier);
+                                parser.parse(commandString).execute(saver, reader, notifier);
                             } catch(IllegalArgumentException exception) {
                                 System.out.println(exception.getMessage());
-                                notifier.sendErrorMessage(exception.getMessage());
+                                notifier.sendMessage(exception.getMessage());
                             }
 
                         }

@@ -16,20 +16,18 @@ public class Notifier {
     private void addingUser(String newUser){
     }
 
-    public void sendErrorMessage(String error) {
-        try {
-            out.writeUTF(error);
-            out.flush();
-            System.out.println("Sent error message: " + error);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Couldn't send error to clients");
-        }
-    }
-
     public void sendMessage(Message message) {
         try {
             out.writeUTF(message.toString());
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't send message to clients");
+        }
+    }
+    public void sendMessage(String message) {
+        try {
+            out.writeUTF(message);
             out.flush();
         } catch (IOException e) {
             e.printStackTrace();
