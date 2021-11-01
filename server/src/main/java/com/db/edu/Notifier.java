@@ -12,7 +12,7 @@ public class Notifier {
     private void sendErrorMessage(){
     }
 
-    private void sendMessage(){
+    public void sendMessage(){
     }
 
 }

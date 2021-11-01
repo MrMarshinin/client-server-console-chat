@@ -13,7 +13,7 @@ public class Parser {
         commandCreators.put("/hist", (String key) -> new GetHistoryCommand());
     }
     public ChatCommand parse(String command) {
-        String[] strings = command.split(",");
+        String[] strings = command.split(" ");
         if (strings.length < 1) {
             throw new IllegalArgumentException("Could not parse.");
         }

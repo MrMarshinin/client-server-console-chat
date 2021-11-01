@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Server {
     public static void main(String[] args) {
-        try(final ServerSocket listener = new ServerSocket(9999);
+        try (final ServerSocket listener = new ServerSocket(9999);
             final Socket connection = listener.accept();
             final DataInputStream input = new DataInputStream(
                     new BufferedInputStream(connection.getInputStream()));
@@ -21,8 +21,9 @@ public class Server {
             Saver saver = new FileSaver();
             Notifier notifier = new Notifier();
 
-            while (input.available() > 0) {
+            while (true) {
                 final String commandString = input.readUTF();
+                System.out.println(commandString);
 
                 parser.parse(commandString).execute(saver, notifier);
             }

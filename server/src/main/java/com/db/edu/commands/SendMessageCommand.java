@@ -21,6 +21,6 @@ public class SendMessageCommand implements ChatCommand {
     @Override
     public void execute(Saver saver, Notifier notifier) {
         saver.save(dateTime.toString() + ", " + message);
-        notifier.notify();
+        notifier.sendMessage();
     }
 }
