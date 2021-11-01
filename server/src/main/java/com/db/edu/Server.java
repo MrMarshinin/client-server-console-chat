@@ -19,7 +19,7 @@ public class Server {
             Parser parser = new Parser();
 
             Saver saver = new FileSaver();
-            Notifier notifier = new Notifier();
+            Notifier notifier = new Notifier(out);
 
             while (true) {
                 final String commandString = input.readUTF();

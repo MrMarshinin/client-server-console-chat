@@ -1,5 +1,6 @@
 package com.db.edu.commands;
 
+import com.db.edu.Message;
 import com.db.edu.Notifier;
 import com.db.edu.Saver;
 
@@ -9,18 +10,17 @@ import java.time.ZoneId;
 import java.util.Date;
 
 public class SendMessageCommand implements ChatCommand {
-    String message;
-    LocalDateTime dateTime;
+    Message message;
 
     SendMessageCommand(String argument) {
-        this.message = argument;
         Instant instance = java.time.Instant.ofEpochMilli(System.currentTimeMillis());
-        dateTime = LocalDateTime.ofInstant(instance, ZoneId.of(ZoneId.systemDefault().getId()));
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instance, ZoneId.of(ZoneId.systemDefault().getId()));
+        this.message = new Message(argument, dateTime);
     }
 
     @Override
     public void execute(Saver saver, Notifier notifier) {
-        saver.save(dateTime.toString() + ", " + message);
-        notifier.sendMessage();
+        saver.save(message.toString());
+        notifier.sendMessage(message);
     }
 }
