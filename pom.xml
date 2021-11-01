@@ -45,10 +45,10 @@
                 </dependencies>
                 <configuration>
                     <targetClasses>
-                        <param>com.acme.edu.*</param>
+                        <param>com.db.edu.*</param>
                     </targetClasses>
                     <targetTests>
-                        <param>com.acme.edu.*</param>
+                        <param>com.db.edu.*</param>
                     </targetTests>
                     <verbose>true</verbose>
                 </configuration>
@@ -73,8 +73,9 @@
     <dependencies>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.10.19</version>
+            <artifactId>mockito-core</artifactId>
+            <version>4.0.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
