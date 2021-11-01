@@ -21,7 +21,7 @@ public class MessageHandler {
         executor.execute(() -> {
             while (true) {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
