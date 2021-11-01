@@ -2,10 +2,10 @@ package com.db.edu;
 
 import java.io.*;
 
-public class FileHistorySaver implements HistorySaver {
+public class FileSaver implements Saver {
 
     @Override
-    public void push(String message){
+    public void save(String message){
         try {
             File file = new File("history.txt");
             if(!file.exists()){
