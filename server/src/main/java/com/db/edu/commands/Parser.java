@@ -3,6 +3,7 @@ package com.db.edu.commands;
 import com.db.edu.commands.ChatCommand;
 import com.db.edu.commands.ChatCommandCreator;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Parser {
@@ -22,10 +23,8 @@ public class Parser {
         if (creator == null) {
             throw new IllegalArgumentException("Could not parse command name.");
         }
-        String arguments = "";
-        if (strings.length == 2) {
-            arguments = strings[1];
-        }
-        return creator.create(arguments);
+        StringBuilder arguments = new StringBuilder();
+        Arrays.stream(strings).filter(s -> s != strings[0]).forEach(arguments::append);
+        return creator.create(arguments.toString());
     }
 }

@@ -17,11 +17,13 @@ public class MessageHandler {
     }
 
     public void handle() throws IOException, InterruptedException {
-        String command = reader.readLine();
-        out.writeUTF(command);
-        out.flush();
-        Printer.print(command);
-        Thread.sleep(1000);
-        Printer.print(input.readUTF());
+        while (true) {
+            String command = reader.readLine();
+            Printer.print(command);
+            out.writeUTF(command);
+            out.flush();
+            Thread.sleep(1000);
+            Printer.print(input.readUTF());
+        }
     }
 }
