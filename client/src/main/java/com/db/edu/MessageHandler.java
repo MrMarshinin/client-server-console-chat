@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class MessageHandler {
     private final BufferedReader reader;
@@ -14,6 +16,22 @@ public class MessageHandler {
         this.input = in;
         this.out = out;
         this.reader = bufferedReader;
+        Executor executor = Executors.newFixedThreadPool(1);
+
+        executor.execute(() -> {
+            while (true) {
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    Printer.print(input.readUTF());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void handle() throws IOException, InterruptedException {
@@ -22,8 +40,6 @@ public class MessageHandler {
             Printer.print(command);
             out.writeUTF(command);
             out.flush();
-            Thread.sleep(1000);
-            Printer.print(input.readUTF());
         }
     }
 }
