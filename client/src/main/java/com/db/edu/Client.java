@@ -17,14 +17,8 @@ public class Client {
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(System.in));
 
-            while (true) {
-                String command = reader.readLine();
-                out.writeUTF(command);
-                out.flush();
-                Printer.print(command);
-                Thread.sleep(1000);
-                Printer.print(input.readUTF());
-            }
+            final MessageHandler messageHandler = new MessageHandler(reader, input, out);
+            messageHandler.handle();
         } catch (IOException e) {
             e.printStackTrace();
         }
