@@ -1,4 +1,4 @@
-package com.db.edu;
+package com.db.edu.storage;
 
 import java.io.*;
 
