@@ -1,14 +1,32 @@
 package com.db.edu;
 
+import java.io.*;
+import java.net.Socket;
+
 public class Client {
 
 
     public static void main(String[] args) throws Exception {
-        int port = 8080;
-        if (args.length > 0) {
-            port = Integer.parseInt(args[0]);
-        }
+        try {
+            final Socket socket = new Socket("127.0.0.1", 9999);
+            final DataInputStream input = new DataInputStream(
+                    new BufferedInputStream(socket.getInputStream()));
+            final DataOutputStream out = new DataOutputStream(
+                    new BufferedOutputStream(socket.getOutputStream()));
 
-        new DiscardServer(port).run();
+            BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(System.in));
+
+            while (true) {
+                String command = reader.readLine();
+                out.writeUTF(command);
+                out.flush();
+                Thread.sleep(1000);
+                Printer.print(command);
+                Printer.print(input.readUTF());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
