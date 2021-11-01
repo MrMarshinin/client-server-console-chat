@@ -7,11 +7,6 @@ import java.io.IOException;
 
 public class CustomFileReader implements Reader {
 
-    public static void main(String[] args) {
-        Reader reader = new CustomFileReader();
-        System.out.println(reader.read("text.txt"));
-    }
-
     @Override
     public String read(String roomId) {
         StringBuilder result = new StringBuilder();

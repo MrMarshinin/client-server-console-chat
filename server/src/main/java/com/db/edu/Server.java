@@ -16,7 +16,7 @@ public class Server {
             final DataInputStream input = new DataInputStream(
                     new BufferedInputStream(connection.getInputStream()));
             final DataOutputStream out = new DataOutputStream(
-                    new BufferedOutputStream(connection.getOutputStream()));
+                    new BufferedOutputStream(connection.getOutputStream()))
         ) {
             Parser parser = new Parser();
 
