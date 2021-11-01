@@ -12,6 +12,7 @@ public class Parser {
     public Parser() {
         commandCreators.put("/snd", SendMessageCommand::new);
         commandCreators.put("/hist", (String key) -> new GetHistoryCommand());
+        commandCreators.put("/chroom", (String key) -> new ChangeRoomCommand());
     }
     public ChatCommand parse(String command) {
         String[] strings = command.split(" ");
