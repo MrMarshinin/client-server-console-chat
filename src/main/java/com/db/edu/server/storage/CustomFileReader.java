@@ -1,5 +1,9 @@
 package com.db.edu.server.storage;
 
+import com.db.edu.server.ConnectionHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -8,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomFileReader implements Reader {
-    String historyFileName = "history.txt";
-    File file;
+    private String historyFileName = "history.txt";
+    private File file;
+
+    private static final Logger log = LoggerFactory.getLogger(CustomFileReader.class);
 
     @Override
     public List<String> read() {
@@ -36,7 +42,7 @@ public class CustomFileReader implements Reader {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return result;
     }
@@ -45,6 +51,7 @@ public class CustomFileReader implements Reader {
         if (!file.exists()){
             System.out.println("Create history file ...");
             file.createNewFile();
+            log.info("Created history file.");
             return new ArrayList<>();
         }
         return null;

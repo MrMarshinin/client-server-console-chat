@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -36,7 +37,7 @@ public class FileReaderTest {
         file = mock(File.class);
         when(file.exists()).thenReturn(false);
         customFileReader.checkExist(file);
-        assertEquals(OUT.toString(), "Create history file ...\r\n");
+        assertTrue(OUT.toString().contains("Created history file."));
     }
 
     private void captureSysout() {

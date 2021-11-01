@@ -2,6 +2,8 @@ package com.db.edu.server;
 
 import com.db.edu.server.commands.Parser;
 import com.db.edu.server.storage.Saver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,9 +14,11 @@ public class ConnectionHandler {
     private final Notifier notifier;
     private final Parser parser;
     private final Saver saver;
-    ExecutorService executorService = Executors.newFixedThreadPool(5000);
+    private ExecutorService executorService = Executors.newFixedThreadPool(5000);
 
-    ConnectionHandler(Notifier notifier, Parser parser, Saver saver) {
+    private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
+
+    public ConnectionHandler(Notifier notifier, Parser parser, Saver saver) {
         this.notifier = notifier;
         this.parser = parser;
         this.saver = saver;
@@ -36,25 +40,25 @@ public class ConnectionHandler {
             input = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
             out = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return;
         }
 
         User user = new User(out);
         notifier.addUser(user);
 
-        System.out.println("New connection");
+        log.info("New connection");
 
         while (true) {
             try {
                 final String commandString = input.readUTF();
-                System.out.println("Got from client: " + commandString);
+                log.info("Got command from client: {}", commandString);
                 parser.parse(commandString).execute(saver, notifier, user);
             } catch (IOException exception) {
-                exception.printStackTrace();
+                log.error(exception.getMessage());
                 return;
             } catch(IllegalArgumentException exception) {
-                System.out.println(exception.getMessage());
+                log.error(exception.getMessage());
                 notifier.sendErrorMessage(exception.getMessage(), user);
                 return;
             }
