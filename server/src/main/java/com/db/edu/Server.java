@@ -18,7 +18,7 @@ public class Server {
         ) {
             Parser parser = new Parser();
 
-            Saver saver = new Saver();
+            Saver saver = new FileSaver();
             Notifier notifier = new Notifier();
 
             while (input.available() > 0) {
