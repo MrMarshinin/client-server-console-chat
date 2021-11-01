@@ -12,6 +12,8 @@ import java.util.concurrent.Executors;
 
 public class Server {
     public static void main(String[] args) {
+        Notifier notifier = new Notifier();
+        Parser parser = new Parser();
         try {
             final ServerSocket listener = new ServerSocket(9999);
             while (true) {
@@ -20,20 +22,20 @@ public class Server {
                         Socket connection = listener.accept();
                         final DataInputStream input = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
                         final DataOutputStream out = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
-                        Parser parser = new Parser();
 
                         Saver saver = new FileSaver();
-                        Notifier notifier = new Notifier(out);
+                        UserConnection user = new UserConnection(out);
+                        notifier.addUser(user);
 
                         while (true) {
                             final String commandString = input.readUTF();
                             System.out.println("Got from client: " + commandString);
 
                             try {
-                                parser.parse(commandString).execute(saver, notifier);
+                                parser.parse(user, commandString).execute(user, saver, notifier);
                             } catch(IllegalArgumentException exception) {
                                 System.out.println(exception.getMessage());
-                                notifier.sendErrorMessage(exception.getMessage());
+                                notifier.sendErrorMessage(user, exception.getMessage());
                             }
 
                         }

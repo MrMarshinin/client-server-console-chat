@@ -1,5 +1,6 @@
 package com.db.edu.commands;
 
+import com.db.edu.UserConnection;
 import com.db.edu.commands.ChatCommand;
 import com.db.edu.commands.ChatCommandCreator;
 
@@ -14,7 +15,8 @@ public class Parser {
         commandCreators.put("/hist", (String key) -> new GetHistoryCommand());
         commandCreators.put("/chroom", (String key) -> new ChangeRoomCommand());
     }
-    public ChatCommand parse(String command) {
+
+    public ChatCommand parse(UserConnection user, String command) {
         String[] strings = command.split(" ");
         if (strings.length < 1) {
             throw new IllegalArgumentException("Could not parse.");
@@ -26,6 +28,9 @@ public class Parser {
         }
         StringBuilder arguments = new StringBuilder();
         Arrays.stream(strings).filter(s -> !s.equals(strings[0])).forEach(arguments::append);
+        if (commandName.equals("/chroom")) {
+            user.setRoom(strings[1]);
+        }
         return creator.create(arguments.toString());
     }
 }
