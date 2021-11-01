@@ -24,7 +24,7 @@ public class Parser {
             throw new IllegalArgumentException("Could not parse command name.");
         }
         StringBuilder arguments = new StringBuilder();
-        Arrays.stream(strings).filter(s -> s != strings[0]).forEach(arguments::append);
+        Arrays.stream(strings).filter(s -> !s.equals(strings[0])).forEach(arguments::append);
         return creator.create(arguments.toString());
     }
 }
