@@ -16,7 +16,13 @@ public class Notifier {
     private void addingUser(String newUser){
     }
 
-    private void sendErrorMessage(){
+    public void sendErrorMessage(String error) {
+        try {
+            out.writeUTF(error);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't send error to clients");
+        }
     }
 
     public void sendMessage(Message message) {

@@ -25,7 +25,12 @@ public class Server {
                 final String commandString = input.readUTF();
                 System.out.println(commandString);
 
-                parser.parse(commandString).execute(saver, notifier);
+                try {
+                    parser.parse(commandString).execute(saver, notifier);
+                } catch(IllegalArgumentException exception) {
+                    notifier.sendErrorMessage(exception.getMessage());
+                }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
