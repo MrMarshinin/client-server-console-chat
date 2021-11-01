@@ -21,8 +21,8 @@ public class Client {
                 String command = reader.readLine();
                 out.writeUTF(command);
                 out.flush();
-                Thread.sleep(1000);
                 Printer.print(command);
+                Thread.sleep(1000);
                 Printer.print(input.readUTF());
             }
         } catch (IOException e) {
