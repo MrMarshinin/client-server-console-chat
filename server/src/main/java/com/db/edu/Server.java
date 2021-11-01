@@ -8,21 +8,23 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
     public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(5000);
+        Parser parser = new Parser();
+        Saver saver = new FileSaver();
         try {
             final ServerSocket listener = new ServerSocket(9999);
             while (true) {
-                Executors.newFixedThreadPool(5000).execute(() -> {
+                executorService.execute(() -> {
                     try {
                         Socket connection = listener.accept();
                         final DataInputStream input = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
                         final DataOutputStream out = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
-                        Parser parser = new Parser();
 
-                        Saver saver = new FileSaver();
                         Notifier notifier = new Notifier(out);
 
                         while (true) {
