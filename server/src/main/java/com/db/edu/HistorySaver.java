@@ -1,5 +1,7 @@
 package com.db.edu;
 
+import java.io.IOException;
+
 public interface HistorySaver {
-    public void push(String message);
+    void push(String message);
 }

@@ -5,11 +5,19 @@ import java.io.*;
 public class FileHistorySaver implements HistorySaver {
 
     @Override
-    public void push(String message) {
-        try (final BufferedWriter bufferedWriter = new BufferedWriter(
-                new OutputStreamWriter(
-                        new BufferedOutputStream(
-                                new FileOutputStream("text.txt")), "windows-1251"))) {
+    public void push(String message){
+        try {
+            File file = new File("history.txt");
+            if(!file.exists()){
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file,true);
+            BufferedWriter bw = new BufferedWriter(fw);
+
+            bw.write(message);
+            bw.newLine();
+            bw.close();
 
         } catch (IOException e) {
             e.printStackTrace();
