@@ -10,6 +10,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <parent>
+        <groupId>com.db.edu</groupId>
+        <artifactId>team01</artifactId>
+        <version>1.0</version>
+    </parent>
+
     <build>
         <plugins>
             <plugin>
