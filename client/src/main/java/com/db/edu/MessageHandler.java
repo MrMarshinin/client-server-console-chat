@@ -40,6 +40,7 @@ public class MessageHandler {
             Printer.print(command);
             out.writeUTF(command);
             out.flush();
+            System.out.println("Made flush for client");
         }
     }
 }

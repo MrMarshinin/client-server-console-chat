@@ -16,31 +16,39 @@ public class Server {
         ExecutorService executorService = Executors.newFixedThreadPool(5000);
         Parser parser = new Parser();
         Saver saver = new FileSaver();
+        Notifier notifier = new Notifier();
         try {
             final ServerSocket listener = new ServerSocket(9999);
             while (true) {
+                Socket connection = listener.accept();
+
+                DataInputStream input;
+                DataOutputStream out;
+
+                try {
+                    input = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
+                    out = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    continue;
+                }
+
+                notifier.addOutputStream(out);
+
                 executorService.execute(() -> {
-                    try {
-                        Socket connection = listener.accept();
-                        final DataInputStream input = new DataInputStream(new BufferedInputStream(connection.getInputStream()));
-                        final DataOutputStream out = new DataOutputStream(new BufferedOutputStream(connection.getOutputStream()));
-
-                        Notifier notifier = new Notifier(out);
-
-                        while (true) {
+                    System.out.println("New connection");
+                    while (true) {
+                        try {
                             final String commandString = input.readUTF();
                             System.out.println("Got from client: " + commandString);
-
-                            try {
-                                parser.parse(commandString).execute(saver, notifier);
-                            } catch(IllegalArgumentException exception) {
-                                System.out.println(exception.getMessage());
-                                notifier.sendErrorMessage(exception.getMessage());
-                            }
-
+                            parser.parse(commandString).execute(saver, notifier);
+                        } catch (IOException exception) {
+                            exception.printStackTrace();
+                        } catch(IllegalArgumentException exception) {
+                            System.out.println(exception.getMessage());
+                            notifier.sendErrorMessage(exception.getMessage());
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
                     }
                 });
             }

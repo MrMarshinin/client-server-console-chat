@@ -1,40 +1,50 @@
 package com.db.edu;
 
 
+import javax.xml.crypto.Data;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Notifier {
     ArrayList <String> listOfUser = new ArrayList() ;
-    DataOutputStream out;
+    ArrayList<DataOutputStream> out;
 
-    public Notifier(DataOutputStream out) {
-        this.out = out;
+    public Notifier() {
+        this.out = new ArrayList<>();
+    }
+    public void addOutputStream(DataOutputStream dataOutputStream) {
+        out.add(dataOutputStream);
     }
 
     private void addingUser(String newUser){
     }
 
     public void sendErrorMessage(String error) {
-        try {
-            out.writeUTF(error);
-            out.flush();
-            System.out.println("Sent error message: " + error);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Couldn't send error to clients");
-        }
+        out.forEach((DataOutputStream out) -> {
+            try {
+                out.writeUTF(error);
+                out.flush();
+                System.out.println("Sent error message: " + error);
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Couldn't send error to clients");
+            }
+        } );
+
     }
 
     public void sendMessage(Message message) {
-        try {
-            out.writeUTF(message.toString());
-            out.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Couldn't send message to clients");
-        }
+        out.forEach((DataOutputStream out) -> {
+            try {
+                out.writeUTF(message.toString());
+                out.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Couldn't send message to clients");
+            }
+        });
+
     }
 
 }
