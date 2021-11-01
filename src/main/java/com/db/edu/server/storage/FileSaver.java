@@ -8,10 +8,7 @@ public class FileSaver implements Saver {
     public void save(String message){
         try {
             File file = new File("history.txt");
-            if(!file.exists()){
-                file.createNewFile();
-            }
-
+            checkExist(file);
             FileWriter fw = new FileWriter(file,true);
             BufferedWriter bw = new BufferedWriter(fw);
 
@@ -21,6 +18,12 @@ public class FileSaver implements Saver {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void checkExist(File file) throws IOException {
+        if(!file.exists()){
+            file.createNewFile();
         }
     }
 }

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomFileReader implements Reader {
+    String historyFileName = "history.txt";
+    File file;
 
     @Override
     public List<String> read() {
@@ -18,14 +20,9 @@ public class CustomFileReader implements Reader {
     public List<String> readSpecificRoom(String room) {
         List<String> result = new ArrayList<>();
         try {
-            String historyFileName = "history.txt";
-            File file = new File(historyFileName);
 
-            if (!file.exists()){
-                System.out.println("Create history file ...");
-                file.createNewFile();
-                return new ArrayList<>();
-            }
+            file = new File(historyFileName);
+            checkExist(file);
 
             BufferedReader br = new BufferedReader(new FileReader(historyFileName));
 
@@ -42,5 +39,14 @@ public class CustomFileReader implements Reader {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public ArrayList<?> checkExist(File file) throws IOException {
+        if (!file.exists()){
+            System.out.println("Create history file ...");
+            file.createNewFile();
+            return new ArrayList<>();
+        }
+        return null;
     }
 }
