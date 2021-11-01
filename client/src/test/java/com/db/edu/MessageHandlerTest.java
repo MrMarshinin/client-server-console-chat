@@ -1,15 +1,15 @@
 package com.db.edu;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
-public class MessageHandlerTest {
+public class MessageHandlerTest implements SysoutCaptureAndAssertion {
     private BufferedReader reader;
     private DataInputStream input;
     private DataOutputStream out;
@@ -17,14 +17,27 @@ public class MessageHandlerTest {
 
     @BeforeEach
     public void setUpLoggerController() {
+        resetOut();
+        captureSysout();
         reader = mock(BufferedReader.class);
-        input = mock(DataInputStream.class);
+        input = new DataInputStream(new ByteArrayInputStream("hi".getBytes(StandardCharsets.UTF_8)));
         out = mock(DataOutputStream.class);
         handler = new MessageHandler(reader, input, out);
     }
 
-    @Test
-    public void shouldSendMessage() {
+    @AfterEach
+    public void tearDown() {
+        resetOut();
+    }
 
+    @Test
+    public void shouldSendMessage() throws IOException, InterruptedException {
+        when(reader.readLine()).thenReturn("write this");
+        when(input.readUTF()).thenReturn("nothing");
+
+        handler.handle();
+
+        verify(out).writeUTF("write this");
+        verify(out).flush();
     }
 }

@@ -23,11 +23,12 @@ public class Server {
 
             while (true) {
                 final String commandString = input.readUTF();
-                System.out.println(commandString);
+                System.out.println("Got from client: " + commandString);
 
                 try {
                     parser.parse(commandString).execute(saver, notifier);
                 } catch(IllegalArgumentException exception) {
+                    System.out.println(exception.getMessage());
                     notifier.sendErrorMessage(exception.getMessage());
                 }
 
