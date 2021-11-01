@@ -3,23 +3,23 @@ package com.db.edu;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
 
 public class Notifier {
-    ArrayList<String> listOfUser = new ArrayList() ;
-    List<UserConnection> outs = new LinkedList<>();
+    ArrayList <String> listOfUser = new ArrayList() ;
+    DataOutputStream out;
 
-    public Notifier() {
+    public Notifier(DataOutputStream out) {
+        this.out = out;
     }
 
-    public void addUser(UserConnection connection) {
-        outs.add(connection);
+    private void addingUser(String newUser){
     }
 
-    public void sendErrorMessage(UserConnection user, String error) {
+    public void sendErrorMessage(String error) {
         try {
-            user.getConnection().writeUTF(error);
-            user.getConnection().flush();
+            out.writeUTF(error);
+            out.flush();
             System.out.println("Sent error message: " + error);
         } catch (IOException e) {
             e.printStackTrace();
@@ -27,16 +27,14 @@ public class Notifier {
         }
     }
 
-    public void sendMessage(UserConnection user, Message message) {
-        outs.stream().filter(u -> u.getRoom().equals(user.getRoom())).forEach(u -> {
-            try {
-                u.getConnection().writeUTF(message.toString());
-                u.getConnection().flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Couldn't send message to clients");
-            }
-        });
+    public void sendMessage(Message message) {
+        try {
+            out.writeUTF(message.toString());
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't send message to clients");
+        }
     }
 
 }

@@ -37,6 +37,7 @@ public class MessageHandler {
     public void handle() throws IOException, InterruptedException {
         while (true) {
             String command = reader.readLine();
+            Printer.print(command);
             out.writeUTF(command);
             out.flush();
         }
