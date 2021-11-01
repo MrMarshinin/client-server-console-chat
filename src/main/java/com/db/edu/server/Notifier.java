@@ -1,6 +1,8 @@
 package com.db.edu.server;
 
 
+import com.db.edu.server.entity.Message;
+import com.db.edu.server.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

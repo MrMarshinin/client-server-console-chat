@@ -1,6 +1,7 @@
 package com.db.edu.server;
 
 import com.db.edu.server.commands.Parser;
+import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Saver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package com.db.edu.server.commands;
 
 import com.db.edu.server.Notifier;
-import com.db.edu.server.User;
+import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Reader;
 import com.db.edu.server.storage.Saver;
 

@@ -1,4 +1,4 @@
-package com.db.edu.server;
+package com.db.edu.server.entity;
 
 import java.io.DataOutputStream;
 
