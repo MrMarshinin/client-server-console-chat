@@ -4,34 +4,44 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class CustomFileReader implements Reader {
 
     @Override
-    public String read(String roomId) {
-        StringBuilder result = new StringBuilder();
+    public List<String> read() {
+        return readSpecificRoom("");
+    }
+
+    @Override
+    public List<String> readSpecificRoom(String room) {
+        List<String> result = new ArrayList<>();
         try {
-            File file = new File(roomId);
+            String historyFileName = "history.txt";
+            File file = new File(historyFileName);
 
             if (!file.exists()){
-                System.out.println("Create new room file: " + roomId);
+                System.out.println("Create history file ...");
                 file.createNewFile();
-                return "";
+                return new ArrayList<>();
             }
 
-            BufferedReader br = new BufferedReader(new FileReader(roomId));
+            BufferedReader br = new BufferedReader(new FileReader(historyFileName));
 
             String line = br.readLine();
 
             while (line != null) {
-                result.append(line);
-                result.append(System.lineSeparator());
+                if (line.startsWith(room)) {
+                    result.add(line);
+                }
                 line = br.readLine();
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result.toString();
+        return result;
     }
 }
