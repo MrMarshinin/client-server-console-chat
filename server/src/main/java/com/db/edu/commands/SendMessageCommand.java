@@ -2,7 +2,7 @@ package com.db.edu.commands;
 
 import com.db.edu.Message;
 import com.db.edu.Notifier;
-import com.db.edu.storage.Reader;
+import com.db.edu.User;
 import com.db.edu.storage.Saver;
 
 import java.time.Instant;
@@ -19,8 +19,8 @@ public class SendMessageCommand implements ChatCommand {
     }
 
     @Override
-    public void execute(Saver saver, Reader reader, Notifier notifier) {
+    public void execute(Saver saver, Notifier notifier, User user) {
         saver.save(message.toString());
-        notifier.sendMessage(message);
+        notifier.sendMessage(message, user);
     }
 }

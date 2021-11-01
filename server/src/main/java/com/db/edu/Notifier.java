@@ -4,60 +4,39 @@ package com.db.edu;
 import javax.xml.crypto.Data;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Notifier {
-    ArrayList <String> listOfUser = new ArrayList() ;
-    ArrayList<DataOutputStream> out;
+    List<User> listOfUsers = new LinkedList<>() ;
 
     public Notifier() {
-        this.out = new ArrayList<>();
-    }
-    public void addOutputStream(DataOutputStream dataOutputStream) {
-        out.add(dataOutputStream);
     }
 
-    private void addingUser(String newUser){
+    public void addUser(User user) {
+        listOfUsers.add(user);
     }
 
-    public void sendErrorMessage(String error) {
-        out.forEach((DataOutputStream out) -> {
-            try {
-                out.writeUTF(error);
-                out.flush();
-                System.out.println("Sent error message: " + error);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Couldn't send error to clients");
-            }
-        } );
-
+    public void sendErrorMessage(String error, User user) {
+        sendPersonalMessage("error: " + error, user);
     }
 
-    public void sendMessage(Message message) {
-        out.forEach((DataOutputStream out) -> {
-            try {
-                out.writeUTF(message.toString());
-                out.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Couldn't send message to clients");
-            }
-        });
-
-    }
-    public void sendMessage(String message) {
-        out.forEach((DataOutputStream out) -> {
-            try {
-                out.writeUTF(message);
-                out.flush();
-                System.out.println("Sent message: " + message);
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Couldn't send message to clients");
-            }
-        } );
-
+    public void sendMessage(Message message, User user) {
+        listOfUsers.stream().filter(u -> u.getRoom().equals(user.getRoom()))
+                .forEach(u -> sendPersonalMessage(message.toString(), u));
     }
 
+    public void sendPersonalMessage(String message, User user) {
+        DataOutputStream out = user.getOutput();
+        try {
+            out.writeUTF(message);
+            out.flush();
+            System.out.println("Sent message: " + message);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't send error to clients");
+        }
+    }
 }
