@@ -6,12 +6,25 @@ public class Message {
     private final String body;
     private final LocalDateTime dateTime;
 
-    public Message(String body, LocalDateTime dateTime) {
+    private String username;
+    private String room;
+
+    public Message(String body, LocalDateTime dateTime, String username, String room) {
         this.body = body;
         this.dateTime = dateTime;
+        this.username = username;
+        this.room = room;
     }
 
-    public String toString(User user) {
-        return dateTime.toString() + ", " + user.getNick() + ": " + body;
+    public String toString() {
+        return dateTime.toString() + ", " + room + ", " + username + ": " + body;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setRoom(String room) {
+        this.room = room;
     }
 }

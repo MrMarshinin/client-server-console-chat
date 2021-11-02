@@ -17,7 +17,7 @@ public class GetHistoryCommand implements ChatCommand {
     @Override
     public void execute(Saver saver, Notifier notifier, User user) {
         System.out.println("Execute history command");
-        List<String> messages = reader.read();
+        List<String> messages = reader.readSpecificRoom(user.getRoom());
         messages.forEach(message -> notifier.sendPersonalMessage(message, user));
     }
 }
