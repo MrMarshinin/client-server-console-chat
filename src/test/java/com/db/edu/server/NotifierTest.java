@@ -4,6 +4,7 @@ import com.db.edu.server.Notifier;
 import com.db.edu.server.entity.AllMessage;
 import com.db.edu.server.entity.Message;
 import com.db.edu.server.entity.User;
+import com.db.edu.server.entity.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +19,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class NotifierTest {
-    private List<User> listOfUsers = new LinkedList<>();
-    Notifier notifier = new Notifier();
+    UserFactory factory = new UserFactory();
+    Notifier notifier = new Notifier(factory);
     private DataOutputStream stream;
     User user;
     Message message;
@@ -28,7 +29,7 @@ public class NotifierTest {
     @BeforeEach
     public void SetUp() {
         stream = new DataOutputStream(new ByteArrayOutputStream());
-        user = new User(stream);
+        user = factory.createUser(stream);
         LocalDateTime localtime = LocalDateTime.of(2012, 6, 30, 12, 00);
         message = new AllMessage("404", localtime, "@Felix", "1");
         captureSysout();
@@ -36,8 +37,6 @@ public class NotifierTest {
 
     @Test
     public void testSendPersonalMessage() {
-
-        notifier.addUser(user);
         notifier.sendPersonalMessage("123", user);
         assertThat(OUT.toString()).containsSequence("Sent personal message: 123" + System.lineSeparator());
         notifier.sendPersonalMessage("hello", user);
@@ -48,7 +47,6 @@ public class NotifierTest {
 
     @Test
     public void testSendMessage() {
-        notifier.addUser(user);
         notifier.sendMessage(message, user);
         assertThat(OUT.toString()).contains("Sent personal message: 2012-06-30T12:00, 1, @Felix: 404");
     }

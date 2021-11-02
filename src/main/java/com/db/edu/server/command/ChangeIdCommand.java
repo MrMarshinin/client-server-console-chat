@@ -1,4 +1,4 @@
-package com.db.edu.server.commands;
+package com.db.edu.server.command;
 
 import com.db.edu.server.Notifier;
 import com.db.edu.server.entity.User;
@@ -16,7 +16,11 @@ public class ChangeIdCommand implements ChatCommand {
 
     @Override
     public void execute(Saver saver, Notifier notifier, User user) {
-        notifier.sendPersonalMessage("You changed your nick to: " + id, user);
-        user.setNick(id);
+        try {
+            user.changeNick(id);
+            notifier.sendPersonalMessage("You changed your nick to: " + id, user);
+        } catch (IllegalArgumentException e) {
+            notifier.sendPersonalMessage(e.getMessage(), user);
+        }
     }
 }
