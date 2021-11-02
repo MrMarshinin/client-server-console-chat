@@ -23,6 +23,9 @@ public class SendPersonalMessageCommand implements ChatCommand {
             throw new IllegalArgumentException("Invalid number of arguments.");
         }
         usernameTo = arguments[0];
+        if (usernameTo.equals("default")) {
+            throw new IllegalArgumentException("Username of recipient can't be default.");
+        }
         String body = arguments[1];
 
         this.message = new PersonalMessage(body, dateTime,"", "", usernameTo);
