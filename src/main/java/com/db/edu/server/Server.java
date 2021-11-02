@@ -23,25 +23,28 @@ public class Server {
         Saver saver = new FileSaver();
         Notifier notifier = new Notifier();
         ConnectionHandler handler = new ConnectionHandler(notifier, parser, saver);
-        final ServerSocket listener = new ServerSocket(9999);
-        executorService.execute(() -> {
-            while (true) {
-                try {
-                    Socket connection = listener.accept();
-                    handler.handleConnection(connection);
-                } catch (IOException e) {
-                    log.error(e.getMessage());
-                    return;
+        try (ServerSocket socket = new ServerSocket(9999)) {
+            executorService.execute(() -> {
+                while (true) {
+                    try {
+                        Socket connection = socket.accept();
+                        handler.handleConnection(connection);
+                    } catch (IOException e) {
+                        log.error(e.getMessage());
+                        return;
+                    }
                 }
-            }
-        });
+            });
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        reader.readLine();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            String exitWhenEnterAny = reader.readLine();
 
-        executorService.shutdownNow();
-        handler.shutdown();
-        Thread.sleep(1000);
-        System.exit(0);
+            executorService.shutdownNow();
+            handler.shutdown();
+            Thread.sleep(1000);
+            System.exit(exitWhenEnterAny.equals("exit") ? 0 : -1);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
     }
 }

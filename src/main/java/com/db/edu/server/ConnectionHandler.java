@@ -15,7 +15,7 @@ public class ConnectionHandler {
     private final Notifier notifier;
     private final Parser parser;
     private final Saver saver;
-    private ExecutorService executorService = Executors.newFixedThreadPool(5000);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(5000);
 
     private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
 
