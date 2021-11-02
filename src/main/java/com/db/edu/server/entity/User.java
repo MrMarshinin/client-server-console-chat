@@ -6,11 +6,11 @@ public class User {
     private final DataOutputStream out;
     private String room = "all";
     private String nick = "default";
-    private final UserFactory factory;
+    private final UserHandler handler;
 
-    User(DataOutputStream stream, UserFactory factory) {
+    User(DataOutputStream stream, UserHandler handler) {
         this.out = stream;
-        this.factory = factory;
+        this.handler = handler;
     }
 
     public String getRoom() {
@@ -30,7 +30,7 @@ public class User {
     }
 
     public void changeNick(String nick) throws IllegalArgumentException {
-        factory.changeNick(this, nick);
+        handler.changeNick(this, nick);
     }
 
     void setNick(String nick) {

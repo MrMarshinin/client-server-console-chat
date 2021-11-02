@@ -4,22 +4,20 @@ package com.db.edu.server;
 import com.db.edu.server.entity.Message;
 import com.db.edu.server.entity.PersonalMessage;
 import com.db.edu.server.entity.User;
-import com.db.edu.server.entity.UserFactory;
+import com.db.edu.server.entity.UserHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
 
 public class Notifier {
-    private final UserFactory factory;
+    private final UserHandler factory;
 
     private static final Logger log = LoggerFactory.getLogger(Notifier.class);
 
-    public Notifier(UserFactory factory) {
+    public Notifier(UserHandler factory) {
         this.factory = factory;
     }
 
@@ -28,9 +26,9 @@ public class Notifier {
     }
 
     public void sendPersonalMessage(PersonalMessage message, User userFrom) {
-        Optional<User> userTo = factory.getUsers().stream().filter((User user) -> {
-            return (user.getNick().equals(message.getUsernameTo())) && (user.getRoom().equals(userFrom.getRoom()));
-        }).findFirst();
+        Optional<User> userTo = factory.getUsers().stream().filter((User user) ->
+                (user.getNick().equals(message.getUsernameTo())) &&
+                        user.getRoom().equals(userFrom.getRoom())).findFirst();
         if (!userTo.isPresent()) {
             throw new IllegalArgumentException(userTo + " isn't in the current room now.");
         }

@@ -1,10 +1,9 @@
 package com.db.edu.server;
 
-import com.db.edu.server.Notifier;
 import com.db.edu.server.entity.AllMessage;
 import com.db.edu.server.entity.Message;
 import com.db.edu.server.entity.User;
-import com.db.edu.server.entity.UserFactory;
+import com.db.edu.server.entity.UserHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,14 +11,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class NotifierTest {
-    UserFactory factory = new UserFactory();
+    UserHandler factory = new UserHandler();
     Notifier notifier = new Notifier(factory);
     private DataOutputStream stream;
     User user;
