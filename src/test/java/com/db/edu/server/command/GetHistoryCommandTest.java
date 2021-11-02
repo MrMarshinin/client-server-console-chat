@@ -1,24 +1,17 @@
-package com.db.edu.server.commands;
+package com.db.edu.server.command;
 
 import com.db.edu.server.Notifier;
 import com.db.edu.server.entity.Message;
 import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Reader;
 import com.db.edu.server.storage.Saver;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
 
 class GetHistoryCommandTest {
 
@@ -27,7 +20,6 @@ class GetHistoryCommandTest {
     Notifier notifier;
     Saver saver;
     User user;
-    String message;
 
     @BeforeEach
     void setUp() {
@@ -36,8 +28,6 @@ class GetHistoryCommandTest {
         notifier = mock(Notifier.class);
         user = mock(User.class);
         command = new GetHistoryCommand(reader);
-//        message = new ArrayList<String>(Arrays.asList("a", "b"));
-        message = "c";
     }
 
     @Test
