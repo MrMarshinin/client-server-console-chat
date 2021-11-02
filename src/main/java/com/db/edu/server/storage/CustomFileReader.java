@@ -11,6 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class CustomFileReader implements Reader {
     private final String historyFileName;
@@ -34,20 +36,7 @@ public class CustomFileReader implements Reader {
             File file = new File(historyFileName);
             checkExist(file);
 
-            String line = br.readLine();
-
-            while (line != null) {
-                Message message = tryCreateMessage(line);
-                if (message == null) {
-                    line = br.readLine();
-                    continue;
-                }
-
-                if (message.getRoom().equals(room)) {
-                    result.add(message);
-                }
-                line = br.readLine();
-            }
+            return br.lines().map(this::tryCreateMessage).filter(Objects::nonNull).collect(Collectors.toList());
         } catch (IOException e) {
             log.error(e.getMessage());
         }
