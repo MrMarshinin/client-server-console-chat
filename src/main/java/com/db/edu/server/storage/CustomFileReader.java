@@ -40,11 +40,8 @@ public class CustomFileReader implements Reader {
             String line = br.readLine();
 
             while (line != null) {
-                Message message;
-                try {
-                    message = new Message(line);
-                } catch (IllegalArgumentException e) {
-                    log.error("Invalid format for message");
+                Message message = tryCreateMessage(line);
+                if (message == null) {
                     line = br.readLine();
                     continue;
                 }
@@ -60,6 +57,16 @@ public class CustomFileReader implements Reader {
             log.error(e.getMessage());
         }
         return result;
+    }
+
+    public Message tryCreateMessage(String line) {
+        try {
+            Message message = new Message(line);
+            return message;
+        } catch (IllegalArgumentException e) {
+            log.error("Invalid format for message");
+            return null;
+        }
     }
 
     public void checkExist(File file) throws IOException {

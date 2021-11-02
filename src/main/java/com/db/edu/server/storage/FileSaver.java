@@ -25,10 +25,8 @@ public class FileSaver implements Saver {
     }
 
     public void checkExist(File file) throws IOException {
-        if(!file.exists()){
-            if (file.createNewFile()) {
-                throw new IOException("Cannot create file history.txt, but it doesn't exist");
-            }
+        if(!file.exists() && file.createNewFile()){
+            throw new IOException("Cannot create file history.txt, but it doesn't exist");
         }
     }
 }
