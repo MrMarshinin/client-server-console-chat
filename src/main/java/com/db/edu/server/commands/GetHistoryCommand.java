@@ -1,6 +1,5 @@
 package com.db.edu.server.commands;
 
-import com.db.edu.server.ConnectionHandler;
 import com.db.edu.server.Notifier;
 import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Reader;
