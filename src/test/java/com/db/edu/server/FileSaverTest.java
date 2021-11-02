@@ -2,9 +2,12 @@ package com.db.edu.server;
 
 import com.db.edu.server.storage.FileSaver;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
@@ -19,12 +22,6 @@ public class FileSaverTest {
     public void SetUp() {
     }
 
-    @Test
-    public void TestFileWriterFileExist() {
-        file = new File("history.txt");
-        fileSaverSub.save("message");
-        assertTrue(this.file.length() > 0L);
-    }
 
     @Test
     public void TestFileWriterFileNotExist() throws IOException {
