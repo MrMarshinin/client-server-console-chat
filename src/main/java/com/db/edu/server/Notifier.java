@@ -29,10 +29,10 @@ public class Notifier {
 
     public void sendPersonalMessage(PersonalMessage message, User userFrom) {
         Optional<User> userTo = factory.getUsers().stream().filter((User user) -> {
-            return (user.getNick().equals(message.getUsernameTo()));
+            return (user.getNick().equals(message.getUsernameTo())) && (user.getRoom().equals(userFrom.getRoom()));
         }).findFirst();
         if (!userTo.isPresent()) {
-            throw new IllegalArgumentException("Personal message must contain userTo info.");
+            throw new IllegalArgumentException(userTo + " isn't in the current room now.");
         }
         sendPersonalMessage(message.getDecoratedString(), userFrom);
         sendPersonalMessage(message.getDecoratedString(), userTo.get());

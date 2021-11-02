@@ -1,6 +1,7 @@
 package com.db.edu.server.command;
 
 import com.db.edu.server.Notifier;
+import com.db.edu.server.entity.AllMessage;
 import com.db.edu.server.entity.Message;
 import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Reader;
@@ -33,7 +34,7 @@ class GetHistoryCommandTest {
     @Test
     void execute() {
         List<Message> messages = new ArrayList<>();
-        messages.add(new Message("2021-11-01T22:57:29.523, a, a"));
+        messages.add(new AllMessage("2021-11-01T22:57:29.523, a, a"));
 //        messages.add(new Message("2021-11-01T22:57:29.523, a, b"));
 
         when(user.getRoom()).thenReturn("");
