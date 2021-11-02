@@ -1,7 +1,6 @@
 package com.db.edu.server.storage;
 
 import com.db.edu.server.entity.Message;
-import com.db.edu.server.entity.Printer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,7 +64,6 @@ public class CustomFileReader implements Reader {
 
     public void checkExist(File file) throws IOException {
         if (!file.exists()){
-            Printer.print("Create history file ...");
             if (!file.createNewFile()) {
                 throw new IOException("Cannot create file history.txt, but it doesn't exist");
             }
