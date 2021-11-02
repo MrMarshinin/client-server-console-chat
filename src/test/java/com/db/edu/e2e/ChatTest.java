@@ -1,39 +1,32 @@
 package com.db.edu.e2e;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import com.db.edu.server.ConnectionHandler;
+import com.db.edu.server.Notifier;
+import com.db.edu.server.Server;
+import com.db.edu.server.commands.Parser;
+import com.db.edu.server.entity.User;
+import com.db.edu.server.storage.FileSaver;
+import com.db.edu.server.storage.Saver;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.util.LinkedList;
+import java.util.List;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.verify;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
 
-@Ignore
+
 public class ChatTest {
-    private BufferedReader in = null;
+    private List<User> listOfUsers = new LinkedList<>() ;
 
-    @Before
-    public void setup() throws IOException {
-        in = new BufferedReader(
-                new InputStreamReader(getClass().getResourceAsStream("/data.txt")));
-    }
 
-    @After
-    public void teardown() throws IOException {
-        if (in != null) {
-            in.close();
-        }
-        in = null;
-    }
 
     @Test
     public void testReadFromFile() throws IOException {
-        String line = in.readLine();
+      assertTrue(true);
 
 
     }
