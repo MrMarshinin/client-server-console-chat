@@ -13,6 +13,7 @@ public class Parser {
         commandCreators.put("/hist", (String key) -> new GetHistoryCommand(new CustomFileReader()));
         commandCreators.put("/chroom", ChangeRoomCommand::new);
         commandCreators.put("/chid", ChangeIdCommand::new);
+        commandCreators.put("/sndp", SendPersonalMessageCommand::new);
     }
 
     public ChatCommand parse(String command) {
