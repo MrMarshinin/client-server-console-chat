@@ -23,13 +23,13 @@ public class CustomFileReader implements Reader {
     }
 
     @Override
-    public List<String> read() {
+    public List<Message> read() {
         return readSpecificRoom("");
     }
 
     @Override
-    public List<String> readSpecificRoom(String room) {
-        List<String> result = new ArrayList<>();
+    public List<Message> readSpecificRoom(String room) {
+        List<Message> result = new ArrayList<>();
         try {
 
             File file = new File(HISTORY_FILE_NAME);
@@ -50,7 +50,7 @@ public class CustomFileReader implements Reader {
                 }
 
                 if (message.getRoom().equals(room)) {
-                    result.add(line);
+                    result.add(message);
                 }
                 line = br.readLine();
             }
