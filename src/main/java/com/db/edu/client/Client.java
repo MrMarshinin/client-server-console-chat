@@ -13,8 +13,9 @@ public class Client {
     private static final Logger log = LoggerFactory.getLogger(Client.class);
 
     public static void main(String[] args) {
+        Socket socket = null;
         try {
-            final Socket socket = new Socket(HOST, PORT);
+            socket = new Socket(HOST, PORT);
             final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             final DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 
@@ -26,6 +27,14 @@ public class Client {
             socket.close();
         } catch (IOException e) {
             log.error(e.getMessage());
+        } finally {
+            if (socket != null) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            }
         }
     }
 }
