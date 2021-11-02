@@ -33,11 +33,13 @@ public class SendPersonalMessageCommand implements ChatCommand {
 
     @Override
     public void execute(Saver saver, Notifier notifier, User user) {
+        if (user.getNick().equals("default")) {
+            throw new IllegalArgumentException("Can't send personal message from default nick.");
+        }
         message.setUsernameFrom(user.getNick());
         message.setUsernameTo(usernameTo);
         message.setRoom(user.getRoom());
 
-        //saver.save(message.toString());
         notifier.sendPersonalMessage(message, user);
     }
 }
