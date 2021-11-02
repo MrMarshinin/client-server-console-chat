@@ -27,6 +27,7 @@ public class Parser {
         }
         StringBuilder arguments = new StringBuilder();
         Arrays.stream(strings).filter(s -> !s.equals(strings[0])).forEach(s -> arguments.append(s).append(" "));
+        arguments.replace(arguments.length() - 1, arguments.length(), "");
         return creator.create(arguments.toString());
     }
 }

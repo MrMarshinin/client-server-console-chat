@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 public class User {
     private final DataOutputStream out;
     private String room = "all";
-    private String nick = "";
+    private String nick = "default";
 
     public User(DataOutputStream stream) {
         this.out = stream;

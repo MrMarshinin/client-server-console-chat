@@ -2,6 +2,7 @@ package com.db.edu.client;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -9,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.mockito.Mockito.*;
 
+@Disabled
 public class MessageHandlerTest implements SysoutCaptureAndAssertion {
     private BufferedReader reader;
     private DataInputStream input;
