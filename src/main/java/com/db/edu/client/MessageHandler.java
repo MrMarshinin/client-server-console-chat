@@ -15,6 +15,7 @@ public class MessageHandler {
     private final DataInputStream input;
     private final DataOutputStream out;
     private final ExecutorService executor = Executors.newFixedThreadPool(1);
+    private boolean isFinished = false;
 
     private Logger logger = LoggerFactory.getLogger(MessageHandler.class);
 
@@ -26,7 +27,7 @@ public class MessageHandler {
         executor.execute(() -> {
             while (true) {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     logger.error(e.getMessage());
                     Thread.currentThread().interrupt();
@@ -35,7 +36,9 @@ public class MessageHandler {
                 try {
                     Printer.print(input.readUTF());
                 } catch (IOException e) {
-                    logger.error(e.getMessage());
+                    logger.error("Server closed connection! Type anything to exit.");
+                    this.shutdown();
+                    isFinished = true;
                     return;
                 }
             }
@@ -47,9 +50,11 @@ public class MessageHandler {
     }
 
     public void handle() throws IOException {
-        while (true) {
+        while (!isFinished) {
             String command = reader.readLine();
-            if (command.equals("exit")) return;
+            if (command.equals("exit") || isFinished) {
+                return;
+            }
             out.writeUTF(command);
             out.flush();
         }
