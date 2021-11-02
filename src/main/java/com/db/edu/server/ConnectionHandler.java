@@ -64,7 +64,6 @@ public class ConnectionHandler {
             } catch(IllegalArgumentException exception) {
                 log.error(exception.getMessage());
                 notifier.sendErrorMessage(exception.getMessage(), user);
-                return;
             }
         }
     }
