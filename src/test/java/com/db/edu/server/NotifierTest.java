@@ -16,12 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class NotifierTest {
-    UserHandler factory = new UserHandler();
-    Notifier notifier = new Notifier(factory);
+    private UserHandler factory = new UserHandler();
+    private Notifier notifier = new Notifier(factory);
     private DataOutputStream stream;
-    User user;
-    Message message;
-    ByteArrayOutputStream OUT = new ByteArrayOutputStream();
+    private User user;
+    private Message message;
+    private ByteArrayOutputStream OUT = new ByteArrayOutputStream();
 
     @BeforeEach
     public void SetUp() {

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class UserHandler {
-    List<User> users = new LinkedList<>();
+    private List<User> users = new LinkedList<>();
 
     public User createUser(DataOutputStream stream) {
         User user = new User(stream, this);

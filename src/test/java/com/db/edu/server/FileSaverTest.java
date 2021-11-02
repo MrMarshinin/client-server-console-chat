@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class FileSaverTest {
     private FileSaver fileSaverSub = new FileSaver();
-    File file;
+    private File file;
 
     public FileSaverTest() {
     }

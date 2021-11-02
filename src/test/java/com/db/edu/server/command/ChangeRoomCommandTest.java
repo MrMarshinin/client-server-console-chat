@@ -10,12 +10,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 class ChangeRoomCommandTest {
-
-    String room = "argument";
-    ChangeRoomCommand command;
-    Saver saver;
-    Notifier notifier;
-    User user;
+    private String room = "argument";
+    private ChangeRoomCommand command;
+    private Saver saver;
+    private Notifier notifier;
+    private User user;
 
     @BeforeEach
     void setUp() {

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SendPersonalMessageCommand implements ChatCommand {
-    String usernameTo;
-    PersonalMessage message;
+    private String usernameTo;
+    private PersonalMessage message;
 
     public SendPersonalMessageCommand(String argument) {
         Instant instance = java.time.Instant.ofEpochMilli(System.currentTimeMillis());

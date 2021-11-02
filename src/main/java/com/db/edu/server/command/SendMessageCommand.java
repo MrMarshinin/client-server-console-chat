@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class SendMessageCommand implements ChatCommand {
-    AllMessage message;
+    private AllMessage message;
 
     SendMessageCommand(String argument) {
         Instant instance = java.time.Instant.ofEpochMilli(System.currentTimeMillis());

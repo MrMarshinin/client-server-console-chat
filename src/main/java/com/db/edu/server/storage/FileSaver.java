@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 
 public class FileSaver implements Saver {
-    Logger logger = LoggerFactory.getLogger(FileSaver.class);
+    private Logger logger = LoggerFactory.getLogger(FileSaver.class);
 
     @Override
     public void save(String message){

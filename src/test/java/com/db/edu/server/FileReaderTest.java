@@ -20,9 +20,9 @@ import static org.mockito.Mockito.*;
 public class FileReaderTest {
     private BufferedReader reader;
     private CustomFileReader customFileReader = new CustomFileReader();
-    File file;
+    private File file;
     private DataInputStream input;
-    ByteArrayOutputStream OUT = new ByteArrayOutputStream();
+    private ByteArrayOutputStream OUT = new ByteArrayOutputStream();
 
 
     public FileReaderTest() {

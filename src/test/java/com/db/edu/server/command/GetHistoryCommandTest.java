@@ -15,12 +15,11 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 
 class GetHistoryCommandTest {
-
-    Reader reader;
-    GetHistoryCommand command;
-    Notifier notifier;
-    Saver saver;
-    User user;
+    private Reader reader;
+    private GetHistoryCommand command;
+    private Notifier notifier;
+    private Saver saver;
+    private User user;
 
     @BeforeEach
     void setUp() {

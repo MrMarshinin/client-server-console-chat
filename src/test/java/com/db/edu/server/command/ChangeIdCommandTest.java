@@ -9,12 +9,11 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.*;
 
 class ChangeIdCommandTest {
-
-    String id = "argument";
-    ChangeIdCommand command;
-    Saver saver;
-    Notifier notifier;
-    User user;
+    private String id = "argument";
+    private ChangeIdCommand command;
+    private Saver saver;
+    private Notifier notifier;
+    private User user;
 
     @BeforeEach
     public void setUp() {
