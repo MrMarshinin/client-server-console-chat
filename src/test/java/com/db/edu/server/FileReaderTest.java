@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 public class FileReaderTest {
     private BufferedReader reader;
     private CustomFileReader customFileReader = new CustomFileReader();
-    File file = new File("history.txt");
+    File file;
     private DataInputStream input;
     ByteArrayOutputStream OUT = new ByteArrayOutputStream();
 
