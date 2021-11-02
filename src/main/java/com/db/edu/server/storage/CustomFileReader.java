@@ -1,6 +1,7 @@
 package com.db.edu.server.storage;
 
 import com.db.edu.server.ConnectionHandler;
+import com.db.edu.server.entity.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,16 @@ public class CustomFileReader implements Reader {
             String line = br.readLine();
 
             while (line != null) {
-                if (line.startsWith(room)) {
+                Message message;
+                try {
+                    message = new Message(line);
+                } catch (IllegalArgumentException e) {
+                    log.error("Invalid format for message");
+                    line = br.readLine();
+                    continue;
+                }
+
+                if (message.getRoom().equals(room)) {
                     result.add(line);
                 }
                 line = br.readLine();

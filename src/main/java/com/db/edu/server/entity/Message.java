@@ -15,6 +15,21 @@ public class Message {
         this.username = username;
         this.room = room;
     }
+    public Message(String line) {
+        String[] arguments = line.split(": ");
+        if (arguments.length != 2) {
+            throw new IllegalArgumentException("Invalid format for message.");
+        }
+        this.body = arguments[1];
+        String[] metaInfo = arguments[0].split(", ");
+        if (metaInfo.length != 3) {
+            throw new IllegalArgumentException("Invalid meta info formant for message.");
+        }
+        this.dateTime = LocalDateTime.parse(metaInfo[0]);
+        this.room = metaInfo[1];
+        this.username = metaInfo[2];
+
+    }
 
     public String toString() {
         return dateTime.toString() + ", " + room + ", " + username + ": " + body;
@@ -26,5 +41,8 @@ public class Message {
 
     public void setRoom(String room) {
         this.room = room;
+    }
+    public String getRoom() {
+        return room;
     }
 }
