@@ -23,14 +23,11 @@ public class Server {
         Saver saver = new FileSaver();
         Notifier notifier = new Notifier();
         ConnectionHandler handler = new ConnectionHandler(notifier, parser, saver);
-        ServerSocket socket = null;
-        try {
-            socket = new ServerSocket(9999);
-            final ServerSocket listener = socket;
+        try (ServerSocket socket = new ServerSocket(9999)) {
             executorService.execute(() -> {
                 while (true) {
                     try {
-                        Socket connection = listener.accept();
+                        Socket connection = socket.accept();
                         handler.handleConnection(connection);
                     } catch (IOException e) {
                         log.error(e.getMessage());
@@ -48,8 +45,6 @@ public class Server {
             System.exit(exitWhenEnterAny.equals("exit") ? 0 : -1);
         } catch (IOException e) {
             log.error(e.getMessage());
-        } finally {
-            if (socket != null) socket.close();
         }
     }
 }
