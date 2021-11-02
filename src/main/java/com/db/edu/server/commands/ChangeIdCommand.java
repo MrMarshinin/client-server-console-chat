@@ -8,6 +8,9 @@ public class ChangeIdCommand implements ChatCommand {
     private final String id;
 
     ChangeIdCommand(String argument) {
+        if (argument.isEmpty()) {
+            throw new IllegalArgumentException("User's nick can't be empty.");
+        }
         this.id = argument;
     }
 
