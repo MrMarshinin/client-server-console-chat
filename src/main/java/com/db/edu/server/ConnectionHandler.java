@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -33,6 +34,16 @@ public class ConnectionHandler {
     }
 
     public void shutdown() {
+        synchronized (factory.getUsers()) {
+            factory.getUsers().forEach(u -> {
+                try {
+                    u.getOutput().close();
+                } catch (IOException e) {
+                    log.error(e.getMessage());
+                }
+            });
+        }
+
         executorService.shutdownNow();
     }
 

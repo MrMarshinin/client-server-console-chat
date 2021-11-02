@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class Notifier {
-    private final UserHandler factory;
+    private final UserHandler userHandler;
 
     private static final Logger log = LoggerFactory.getLogger(Notifier.class);
 
-    public Notifier(UserHandler factory) {
-        this.factory = factory;
+    public Notifier(UserHandler userHandler) {
+        this.userHandler = userHandler;
     }
 
     public void sendErrorMessage(String error, User user) {
@@ -26,9 +26,13 @@ public class Notifier {
     }
 
     public void sendPersonalMessage(PersonalMessage message, User userFrom) {
-        Optional<User> userTo = factory.getUsers().stream().filter((User user) ->
-                (user.getNick().equals(message.getUsernameTo())) &&
-                        user.getRoom().equals(userFrom.getRoom())).findFirst();
+        Optional<User> userTo;
+        synchronized (userHandler.getUsers()) {
+            userTo = userHandler.getUsers().stream().filter((User user) ->
+                    (user.getNick().equals(message.getUsernameTo())) &&
+                            user.getRoom().equals(userFrom.getRoom())).findFirst();
+        }
+
         if (!userTo.isPresent()) {
             throw new IllegalArgumentException(message.getUsernameTo() + " isn't in the current room now.");
         }
@@ -37,8 +41,10 @@ public class Notifier {
     }
 
     public void sendMessage(Message message, User user) {
-        factory.getUsers().stream().filter(u -> u.getRoom().equals(user.getRoom()))
-                .forEach(u -> sendPersonalMessage(message.getDecoratedString(), u));
+        synchronized (userHandler.getUsers()) {
+            userHandler.getUsers().stream().filter(u -> u.getRoom().equals(user.getRoom()))
+                    .forEach(u -> sendPersonalMessage(message.getDecoratedString(), u));
+        }
     }
 
     public void sendPersonalMessage(String message, User user) {

@@ -16,13 +16,15 @@ public class MessageHandler {
     private final DataOutputStream out;
     private final ExecutorService executor = Executors.newFixedThreadPool(1);
     private volatile boolean isFinished = false;
+    private final Printer printer;
 
     private final Logger logger = LoggerFactory.getLogger(MessageHandler.class);
 
-    public MessageHandler(BufferedReader bufferedReader, DataInputStream in, DataOutputStream out) {
+    public MessageHandler(BufferedReader bufferedReader, DataInputStream in, DataOutputStream out, Printer printer) {
         this.input = in;
         this.out = out;
         this.reader = bufferedReader;
+        this.printer = printer;
 
         executor.execute(() -> {
             while (true) {
@@ -34,7 +36,7 @@ public class MessageHandler {
                     return;
                 }
                 try {
-                    Printer.print(input.readUTF());
+                    printer.print(input.readUTF());
                 } catch (IOException e) {
                     logger.error("Server closed connection! Type anything to exit.");
                     this.shutdown();

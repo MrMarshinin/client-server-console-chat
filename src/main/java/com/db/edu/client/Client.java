@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 public class Client {
     private static final String HOST = "127.0.0.1";
@@ -18,9 +17,9 @@ public class Client {
             final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
             final DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, System.getProperty("sun.jnu.encoding")));
 
-            final MessageHandler messageHandler = new MessageHandler(reader, input, out);
+            final MessageHandler messageHandler = new MessageHandler(reader, input, out, new Printer());
             messageHandler.handle();
         } catch (IOException e) {
             log.error(e.getMessage());
