@@ -11,7 +11,11 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Server {
+    private static final Logger log = LoggerFactory.getLogger(Server.class);
 
     public static void main(String[] args) throws IOException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
@@ -26,7 +30,7 @@ public class Server {
                     Socket connection = listener.accept();
                     handler.handleConnection(connection);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error(e.getMessage());
                     return;
                 }
             }

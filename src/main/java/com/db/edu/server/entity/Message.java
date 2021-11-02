@@ -1,10 +1,10 @@
-package com.db.edu.server;
+package com.db.edu.server.entity;
 
 import java.time.LocalDateTime;
 
 public class Message {
-    String body;
-    LocalDateTime dateTime;
+    private String body;
+    private LocalDateTime dateTime;
 
     public Message(String body, LocalDateTime dateTime) {
         this.body = body;

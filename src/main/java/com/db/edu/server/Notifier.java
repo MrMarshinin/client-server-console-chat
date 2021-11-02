@@ -1,16 +1,20 @@
 package com.db.edu.server;
 
 
+import com.db.edu.server.entity.Message;
+import com.db.edu.server.entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Notifier {
-    List<User> listOfUsers = new LinkedList<>() ;
+    private List<User> listOfUsers = new LinkedList<>() ;
 
-    public Notifier() {
-    }
+    private static final Logger log = LoggerFactory.getLogger(Notifier.class);
 
     public void addUser(User user) {
         listOfUsers.add(user);
@@ -30,10 +34,10 @@ public class Notifier {
         try {
             out.writeUTF(message);
             out.flush();
-            System.out.println("Sent message: " + message);
+            log.info("Sent personal message: {}", message);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Couldn't send error to clients");
+            log.error("Couldn't send personal message: {}", message);
         }
     }
 }

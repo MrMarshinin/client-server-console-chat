@@ -1,8 +1,8 @@
 package com.db.edu.server.commands;
 
-import com.db.edu.server.Message;
+import com.db.edu.server.entity.Message;
 import com.db.edu.server.Notifier;
-import com.db.edu.server.User;
+import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Saver;
 
 import java.time.Instant;
