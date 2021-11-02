@@ -37,7 +37,7 @@ public class Server {
         });
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        reader.readLine();
+        String exitWhenEnterAny = reader.readLine();
 
         executorService.shutdownNow();
         handler.shutdown();

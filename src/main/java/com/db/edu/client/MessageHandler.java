@@ -1,5 +1,8 @@
 package com.db.edu.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -13,6 +16,8 @@ public class MessageHandler {
     private final DataOutputStream out;
     private final ExecutorService executor = Executors.newFixedThreadPool(1);
 
+    private Logger logger = LoggerFactory.getLogger(MessageHandler.class);
+
     public MessageHandler(BufferedReader bufferedReader, DataInputStream in, DataOutputStream out) {
         this.input = in;
         this.out = out;
@@ -24,12 +29,15 @@ public class MessageHandler {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
+                    logger.error(e.getMessage());
+                    Thread.currentThread().interrupt();
                     return;
                 }
                 try {
                     Printer.print(input.readUTF());
                 } catch (IOException e) {
                     e.printStackTrace();
+                    logger.error(e.getMessage());
                     return;
                 }
             }
