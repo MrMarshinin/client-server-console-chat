@@ -43,7 +43,4 @@ public class MessageHandlerTest implements SysoutCaptureAndAssertion {
         verify(out).writeUTF("write this");
         verify(out).flush();
     }
-
-    @Test
-    public
 }
