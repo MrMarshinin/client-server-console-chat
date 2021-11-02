@@ -1,9 +1,8 @@
 package com.db.edu.e2e;
 
-import com.sun.org.apache.xpath.internal.operations.NotEquals;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
