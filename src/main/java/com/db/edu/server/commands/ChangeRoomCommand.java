@@ -8,6 +8,9 @@ public class ChangeRoomCommand implements ChatCommand {
     private final String room;
 
     ChangeRoomCommand(String argument) {
+        if (argument.contains(" ")) {
+            throw new IllegalArgumentException("Chat room can't contain spaces");
+        }
         this.room = argument;
     }
 
