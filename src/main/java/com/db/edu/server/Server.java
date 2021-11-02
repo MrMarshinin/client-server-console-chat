@@ -1,7 +1,7 @@
 package com.db.edu.server;
 
 import com.db.edu.server.command.Parser;
-import com.db.edu.server.entity.UserFactory;
+import com.db.edu.server.entity.UserHandler;
 import com.db.edu.server.storage.FileSaver;
 import com.db.edu.server.storage.Saver;
 
@@ -23,7 +23,7 @@ public class Server {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Parser parser = new Parser();
         Saver saver = new FileSaver();
-        UserFactory factory = new UserFactory();
+        UserHandler factory = new UserHandler();
         Notifier notifier = new Notifier(factory);
         ConnectionHandler handler = new ConnectionHandler(notifier, parser, saver, factory);
         try (ServerSocket socket = new ServerSocket(port)) {

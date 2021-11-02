@@ -6,9 +6,9 @@ public class User {
     private final DataOutputStream out;
     private String room = "all";
     private String nick = "default";
-    private final UserFactory factory;
+    private final UserHandler factory;
 
-    User(DataOutputStream stream, UserFactory factory) {
+    User(DataOutputStream stream, UserHandler factory) {
         this.out = stream;
         this.factory = factory;
     }

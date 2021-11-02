@@ -4,7 +4,7 @@ import java.io.DataOutputStream;
 import java.util.LinkedList;
 import java.util.List;
 
-public class UserFactory {
+public class UserHandler {
     List<User> users = new LinkedList<>();
 
     public User createUser(DataOutputStream stream) {
