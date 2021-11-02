@@ -36,7 +36,11 @@ public class CustomFileReader implements Reader {
             File file = new File(historyFileName);
             checkExist(file);
 
-            return br.lines().map(this::tryCreateMessage).filter(Objects::nonNull).collect(Collectors.toList());
+            return br.lines()
+                    .map(this::tryCreateMessage)
+                    .filter(Objects::nonNull)
+                    .filter((Message message) -> message.getRoom().equals(room))
+                    .collect(Collectors.toList());
         } catch (IOException e) {
             log.error(e.getMessage());
         }
