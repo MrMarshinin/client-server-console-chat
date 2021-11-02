@@ -1,5 +1,6 @@
 package com.db.edu.server.storage;
 
+import com.db.edu.server.entity.AllMessage;
 import com.db.edu.server.entity.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +56,7 @@ public class CustomFileReader implements Reader {
 
     public Message tryCreateMessage(String line) {
         try {
-            return new Message(line);
+            return new AllMessage(line);
         } catch (IllegalArgumentException e) {
             log.error("Invalid format for message");
             return null;

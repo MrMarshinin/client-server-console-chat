@@ -2,6 +2,7 @@ package com.db.edu.server;
 
 
 import com.db.edu.server.entity.Message;
+import com.db.edu.server.entity.PersonalMessage;
 import com.db.edu.server.entity.User;
 import com.db.edu.server.entity.UserFactory;
 import org.slf4j.Logger;
@@ -9,6 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 public class Notifier {
     private final UserFactory factory;
@@ -21,6 +25,17 @@ public class Notifier {
 
     public void sendErrorMessage(String error, User user) {
         sendPersonalMessage("error: " + error, user);
+    }
+
+    public void sendPersonalMessage(PersonalMessage message, User userFrom) {
+        Optional<User> userTo = factory.getUsers().stream().filter((User user) -> {
+            return (user.getNick().equals(message.getUsernameTo()));
+        }).findFirst();
+        if (!userTo.isPresent()) {
+            throw new IllegalArgumentException("Personal message must contain userTo info.");
+        }
+        sendPersonalMessage(message.getDecoratedString(), userFrom);
+        sendPersonalMessage(message.getDecoratedString(), userTo.get());
     }
 
     public void sendMessage(Message message, User user) {
