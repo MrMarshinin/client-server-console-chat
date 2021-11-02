@@ -55,6 +55,9 @@ public class ConnectionHandler {
                 final String commandString = input.readUTF();
                 log.info("Got command from client: {}", commandString);
                 parser.parse(commandString).execute(saver, notifier, user);
+                if (Thread.currentThread().isInterrupted()) {
+                    return;
+                }
             } catch (IOException exception) {
                 log.error(exception.getMessage());
                 return;
