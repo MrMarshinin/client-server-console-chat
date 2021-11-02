@@ -19,6 +19,9 @@ public class SendMessageCommand implements ChatCommand {
         if (argument.isEmpty()) {
             throw new IllegalArgumentException("Message can't be empty");
         }
+        if (argument.length() > 149) {
+            throw new IllegalArgumentException("Message can't be longer than 150 symbols.");
+        }
         this.message = new Message(argument, dateTime, "default", "");
     }
 
