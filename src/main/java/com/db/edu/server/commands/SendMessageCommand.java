@@ -8,7 +8,6 @@ import com.db.edu.server.storage.Saver;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 
 public class SendMessageCommand implements ChatCommand {
     Message message;
@@ -17,6 +16,9 @@ public class SendMessageCommand implements ChatCommand {
         Instant instance = java.time.Instant.ofEpochMilli(System.currentTimeMillis());
         LocalDateTime dateTime = LocalDateTime.ofInstant(instance, ZoneId.of(ZoneId.systemDefault().getId()));
 
+        if (argument.isEmpty()) {
+            throw new IllegalArgumentException("Message can't be empty");
+        }
         this.message = new Message(argument, dateTime, "default", "");
     }
 

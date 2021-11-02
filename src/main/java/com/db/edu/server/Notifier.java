@@ -26,7 +26,7 @@ public class Notifier {
 
     public void sendMessage(Message message, User user) {
         listOfUsers.stream().filter(u -> u.getRoom().equals(user.getRoom()))
-                .forEach(u -> sendPersonalMessage(message.toString(), u));
+                .forEach(u -> sendPersonalMessage(message.getDecoratedString(), u));
     }
 
     public void sendPersonalMessage(String message, User user) {
@@ -36,7 +36,6 @@ public class Notifier {
             out.flush();
             log.info("Sent personal message: {}", message);
         } catch (IOException e) {
-            e.printStackTrace();
             log.error("Couldn't send personal message: {}", message);
         }
     }
