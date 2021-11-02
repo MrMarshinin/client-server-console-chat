@@ -9,7 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import static java.lang.System.lineSeparator;
+
 public class FileReaderTest {
+
+    public static final String sep = lineSeparator();
     private BufferedReader reader;
     private CustomFileReader customFileReader = new CustomFileReader();
     File file = new File("history.txt");
@@ -36,7 +40,7 @@ public class FileReaderTest {
         file = mock(File.class);
         when(file.exists()).thenReturn(false);
         customFileReader.checkExist(file);
-        assertEquals(OUT.toString(), "Create history file ...\r\n");
+        assertEquals(OUT.toString(), "Create history file ..." + sep);
     }
 
     private void captureSysout() {
