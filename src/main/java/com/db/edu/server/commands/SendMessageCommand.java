@@ -8,7 +8,6 @@ import com.db.edu.server.storage.Saver;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
 
 public class SendMessageCommand implements ChatCommand {
     Message message;
