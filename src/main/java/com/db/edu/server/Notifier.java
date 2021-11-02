@@ -30,7 +30,7 @@ public class Notifier {
                 (user.getNick().equals(message.getUsernameTo())) &&
                         user.getRoom().equals(userFrom.getRoom())).findFirst();
         if (!userTo.isPresent()) {
-            throw new IllegalArgumentException(userTo + " isn't in the current room now.");
+            throw new IllegalArgumentException(message.getUsernameTo() + " isn't in the current room now.");
         }
         sendPersonalMessage(message.getDecoratedString(), userFrom);
         sendPersonalMessage(message.getDecoratedString(), userTo.get());
