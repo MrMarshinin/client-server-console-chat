@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GetHistoryCommand implements ChatCommand {
     private final Reader reader;
@@ -26,6 +27,6 @@ public class GetHistoryCommand implements ChatCommand {
         if (user.getRoom().equals("all")) {
             messages.addAll(reader.readSpecificRoom(""));
         }
-        messages.forEach(message -> notifier.sendPersonalMessage(message.getDecoratedString(), user));
+        notifier.sendPersonalMessage(messages.stream().map(Message::getDecoratedString).collect(Collectors.joining(System.lineSeparator())), user);
     }
 }
