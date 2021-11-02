@@ -38,11 +38,11 @@ public class NotifierTest {
 
         notifier.addUser(user);
         notifier.sendPersonalMessage("123", user);
-        assertThat(OUT.toString()).containsSequence("Sent personal message: 123\r\n");
+        assertThat(OUT.toString()).containsSequence("Sent personal message: 123" + System.lineSeparator());
         notifier.sendPersonalMessage("hello", user);
-        assertThat(OUT.toString()).containsSequence("Sent personal message: hello\r\n");
+        assertThat(OUT.toString()).containsSequence("Sent personal message: hello" + System.lineSeparator());
         notifier.sendErrorMessage("404", user);
-        assertThat(OUT.toString()).containsSequence("Sent personal message: error: 404\r\n");
+        assertThat(OUT.toString()).containsSequence("Sent personal message: error: 404" + System.lineSeparator());
     }
 
     @Test
