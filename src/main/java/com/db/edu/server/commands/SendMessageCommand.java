@@ -20,7 +20,7 @@ public class SendMessageCommand implements ChatCommand {
 
     @Override
     public void execute(Saver saver, Notifier notifier, User user) {
-        saver.save(message.toString());
+        saver.save(message.toString(user));
         notifier.sendMessage(message, user);
     }
 }
