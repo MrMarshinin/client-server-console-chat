@@ -36,7 +36,6 @@ public class Notifier {
             out.flush();
             log.info("Sent personal message: {}", message);
         } catch (IOException e) {
-            e.printStackTrace();
             log.error("Couldn't send personal message: {}", message);
         }
     }

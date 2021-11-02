@@ -42,6 +42,6 @@ public class Server {
         executorService.shutdownNow();
         handler.shutdown();
         Thread.sleep(1000);
-        System.exit(0);
+        System.exit(exitWhenEnterAny.equals("exit") ? 0 : 0);
     }
 }

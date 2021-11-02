@@ -28,7 +28,6 @@ public class MessageHandler {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
                     logger.error(e.getMessage());
                     Thread.currentThread().interrupt();
                     return;
@@ -36,7 +35,6 @@ public class MessageHandler {
                 try {
                     Printer.print(input.readUTF());
                 } catch (IOException e) {
-                    e.printStackTrace();
                     logger.error(e.getMessage());
                     return;
                 }
