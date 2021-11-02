@@ -1,15 +1,21 @@
 package com.db.edu.server;
 
+import com.db.edu.server.entity.AllMessage;
+import com.db.edu.server.entity.Message;
 import com.db.edu.server.storage.CustomFileReader;
+import org.fest.assertions.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class FileReaderTest {
     private BufferedReader reader;
@@ -17,6 +23,7 @@ public class FileReaderTest {
     File file;
     private DataInputStream input;
     ByteArrayOutputStream OUT = new ByteArrayOutputStream();
+
 
     public FileReaderTest() {
     }
@@ -28,17 +35,31 @@ public class FileReaderTest {
         captureSysout();
     }
 
-    @Disabled
+
     @Test
     public void TestRead() {
         assertEquals(customFileReader.read(), customFileReader.readSpecificRoom(""));
     }
 
     @Test
-    public void TestFileWriterFileNotExist() throws IOException {
+    public void TestFileWriterFileNotExist() {
         file = mock(File.class);
         when(file.exists()).thenReturn(false);
         assertThrows(IOException.class, () -> customFileReader.checkExist(file));
+    }
+
+    @Test
+    public void TestFileExistAndAddRoom() {
+        file = mock(File.class);
+       when(file.exists()).thenReturn(true);
+       customFileReader.readSpecificRoom("room");
+
+    }
+
+    @Test
+    public void TestTryCreateMessage() {
+        AllMessage message = new AllMessage("2012-06-30T12:00, hi, room, user");
+        assertThat((customFileReader.tryCreateMessage("2012-06-30T12:00, hi, room, user")).toString()).isEqualTo(message.toString());
     }
 
     private void captureSysout() {
