@@ -29,6 +29,6 @@ class ChangeIdCommandTest {
         command.execute(saver, notifier, user);
 
         verify(notifier).sendPersonalMessage("You changed your nick to: " + id, user);
-        verify(user).setNick(id);
+        verify(user).changeNick(id);
     }
 }

@@ -3,21 +3,20 @@ package com.db.edu.server;
 
 import com.db.edu.server.entity.Message;
 import com.db.edu.server.entity.User;
+import com.db.edu.server.entity.UserFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Notifier {
-    private List<User> listOfUsers = new LinkedList<>() ;
+    private final UserFactory factory;
 
     private static final Logger log = LoggerFactory.getLogger(Notifier.class);
 
-    public void addUser(User user) {
-        listOfUsers.add(user);
+    public Notifier(UserFactory factory) {
+        this.factory = factory;
     }
 
     public void sendErrorMessage(String error, User user) {
@@ -25,7 +24,7 @@ public class Notifier {
     }
 
     public void sendMessage(Message message, User user) {
-        listOfUsers.stream().filter(u -> u.getRoom().equals(user.getRoom()))
+        factory.getUsers().stream().filter(u -> u.getRoom().equals(user.getRoom()))
                 .forEach(u -> sendPersonalMessage(message.getDecoratedString(), u));
     }
 

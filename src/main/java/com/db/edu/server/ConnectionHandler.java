@@ -2,6 +2,7 @@ package com.db.edu.server;
 
 import com.db.edu.server.command.Parser;
 import com.db.edu.server.entity.User;
+import com.db.edu.server.entity.UserFactory;
 import com.db.edu.server.storage.Saver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,14 +16,16 @@ public class ConnectionHandler {
     private final Notifier notifier;
     private final Parser parser;
     private final Saver saver;
+    private final UserFactory factory;
     private final ExecutorService executorService = Executors.newFixedThreadPool(5000);
 
     private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
 
-    public ConnectionHandler(Notifier notifier, Parser parser, Saver saver) {
+    public ConnectionHandler(Notifier notifier, Parser parser, Saver saver, UserFactory factory) {
         this.notifier = notifier;
         this.parser = parser;
         this.saver = saver;
+        this.factory = factory;
     }
 
     public void handleConnection(Socket connection) {
@@ -45,8 +48,7 @@ public class ConnectionHandler {
             return;
         }
 
-        User user = new User(out);
-        notifier.addUser(user);
+        User user = factory.createUser(out);
 
         log.info("New connection");
 
