@@ -29,12 +29,10 @@ public class CustomFileReader implements Reader {
     @Override
     public List<String> readSpecificRoom(String room) {
         List<String> result = new ArrayList<>();
-        try {
+        try (BufferedReader br = new BufferedReader(new FileReader(historyFileName));) {
 
             File file = new File(historyFileName);
             checkExist(file);
-
-            BufferedReader br = new BufferedReader(new FileReader(historyFileName));
 
             String line = br.readLine();
 
@@ -50,8 +48,6 @@ public class CustomFileReader implements Reader {
                 }
                 line = br.readLine();
             }
-
-            br.close();
         } catch (IOException e) {
             log.error(e.getMessage());
         }
