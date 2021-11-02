@@ -1,4 +1,4 @@
-package com.db.edu.server.commands;
+package com.db.edu.server.command;
 
 import com.db.edu.server.entity.Message;
 import com.db.edu.server.Notifier;

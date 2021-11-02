@@ -1,10 +1,9 @@
-package com.db.edu.server.commands;
+package com.db.edu.server.command;
 
 import com.db.edu.server.Notifier;
 import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Reader;
 import com.db.edu.server.storage.Saver;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -13,7 +12,6 @@ import org.slf4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @Disabled
@@ -38,7 +36,7 @@ class GetHistoryCommandTest {
 
     @Test
     void execute() {
-        List<String> messages = new ArrayList<String>();
+        List<String> messages = new ArrayList<>();
         messages.add("a");
         messages.add("b");
 
@@ -48,6 +46,6 @@ class GetHistoryCommandTest {
         command.execute(saver, notifier, user);
 
         verify(logger).info("Execute history command");
-        verify(notifier, times(messages.size())).sendPersonalMessage(new String(), user);
+        verify(notifier, times(messages.size())).sendPersonalMessage("", user);
     }
 }
