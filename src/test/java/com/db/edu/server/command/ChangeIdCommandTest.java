@@ -1,4 +1,4 @@
-package com.db.edu.server.commands;
+package com.db.edu.server.command;
 
 import com.db.edu.server.Notifier;
 import com.db.edu.server.entity.User;
@@ -6,21 +6,19 @@ import com.db.edu.server.storage.Saver;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
-class ChangeRoomCommandTest {
+class ChangeIdCommandTest {
 
-    String room = "argument";
-    ChangeRoomCommand command;
+    String id = "argument";
+    ChangeIdCommand command;
     Saver saver;
     Notifier notifier;
     User user;
 
     @BeforeEach
-    void setUp() {
-        command = new ChangeRoomCommand("argument");
+    public void setUp() {
+        command = new ChangeIdCommand("argument");
         saver = mock(Saver.class);
         notifier = mock(Notifier.class);
         user = mock(User.class);
@@ -30,7 +28,7 @@ class ChangeRoomCommandTest {
     void execute() {
         command.execute(saver, notifier, user);
 
-        verify(notifier).sendPersonalMessage("You entered room: " + room, user);
-        verify(user).setRoom(room);
+        verify(notifier).sendPersonalMessage("You changed your nick to: " + id, user);
+        verify(user).setNick(id);
     }
 }

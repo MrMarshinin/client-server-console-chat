@@ -1,6 +1,6 @@
 package com.db.edu.server;
 
-import com.db.edu.server.commands.Parser;
+import com.db.edu.server.command.Parser;
 import com.db.edu.server.storage.FileSaver;
 import com.db.edu.server.storage.Saver;
 
@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 public class Server {
     private static final Logger log = LoggerFactory.getLogger(Server.class);
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Parser parser = new Parser();
         Saver saver = new FileSaver();

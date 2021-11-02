@@ -1,6 +1,6 @@
 package com.db.edu.server;
 
-import com.db.edu.server.commands.Parser;
+import com.db.edu.server.command.Parser;
 import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Saver;
 import org.slf4j.Logger;
@@ -64,7 +64,6 @@ public class ConnectionHandler {
             } catch(IllegalArgumentException exception) {
                 log.error(exception.getMessage());
                 notifier.sendErrorMessage(exception.getMessage(), user);
-                return;
             }
         }
     }
