@@ -28,7 +28,7 @@ public class CustomFileReader implements Reader {
     @Override
     public List<Message> readSpecificRoom(String room) {
         List<Message> result = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(historyFileName));) {
+        try (BufferedReader br = new BufferedReader(new FileReader(historyFileName))) {
 
             File file = new File(historyFileName);
             checkExist(file);

@@ -22,7 +22,6 @@ public class Client {
             final MessageHandler messageHandler = new MessageHandler(reader, input, out);
             messageHandler.handle();
             messageHandler.shutdown();
-            socket.close();
         } catch (IOException e) {
             log.error(e.getMessage());
         }
