@@ -5,7 +5,7 @@ import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Saver;
 
 public class ChangeRoomCommand implements ChatCommand {
-    String room;
+    private final String room;
 
     ChangeRoomCommand(String argument) {
         this.room = argument;

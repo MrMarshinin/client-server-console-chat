@@ -5,7 +5,7 @@ import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Saver;
 
 public class ChangeIdCommand implements ChatCommand {
-    String id;
+    private final String id;
 
     ChangeIdCommand(String argument) {
         this.id = argument;
