@@ -35,7 +35,7 @@ public class Message {
     public String getDecoratedString() {
         StringBuilder decoratedString = new StringBuilder("");
         decoratedString.append(dateTime.toString());
-        if (!room.isEmpty()) {
+        if (!room.isEmpty() && !room.equals("all")) {
             decoratedString.append(", " + room);
         }
         if (!username.isEmpty()) {
