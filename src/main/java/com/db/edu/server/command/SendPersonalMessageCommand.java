@@ -1,7 +1,6 @@
 package com.db.edu.server.command;
 
 import com.db.edu.server.Notifier;
-import com.db.edu.server.entity.Message;
 import com.db.edu.server.entity.PersonalMessage;
 import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Saver;
@@ -9,6 +8,8 @@ import com.db.edu.server.storage.Saver;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SendPersonalMessageCommand implements ChatCommand {
     String usernameTo;
@@ -18,15 +19,16 @@ public class SendPersonalMessageCommand implements ChatCommand {
         Instant instance = java.time.Instant.ofEpochMilli(System.currentTimeMillis());
         LocalDateTime dateTime = LocalDateTime.ofInstant(instance, ZoneId.of(ZoneId.systemDefault().getId()));
 
-        String[] arguments = argument.split(" ");
-        if (arguments.length != 2) {
+        ArrayList<String> arguments = new ArrayList<> (Arrays.asList(argument.split(" ")));
+        if (arguments.size() < 2) {
             throw new IllegalArgumentException("Invalid number of arguments.");
         }
-        usernameTo = arguments[0];
+        usernameTo = arguments.get(0);
+        arguments.remove(0);
         if (usernameTo.equals("default")) {
             throw new IllegalArgumentException("Username of recipient can't be default.");
         }
-        String body = arguments[1];
+        String body = String.join(" ", arguments);
 
         this.message = new PersonalMessage(body, dateTime,"", "", usernameTo);
     }
