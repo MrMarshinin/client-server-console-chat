@@ -1,6 +1,6 @@
 package com.db.edu.server.storage;
 
-import com.db.edu.server.ConnectionHandler;
+import com.db.edu.server.entity.Printer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,10 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomFileReader implements Reader {
-    private String historyFileName = "history.txt";
-    private File file;
+    private final String HISTORY_FILE_NAME;
 
     private static final Logger log = LoggerFactory.getLogger(CustomFileReader.class);
+
+    public CustomFileReader() {
+        HISTORY_FILE_NAME = "history.txt";
+    }
 
     @Override
     public List<String> read() {
@@ -27,10 +30,10 @@ public class CustomFileReader implements Reader {
         List<String> result = new ArrayList<>();
         try {
 
-            file = new File(historyFileName);
+            File file = new File(HISTORY_FILE_NAME);
             checkExist(file);
 
-            BufferedReader br = new BufferedReader(new FileReader(historyFileName));
+            BufferedReader br = new BufferedReader(new FileReader(HISTORY_FILE_NAME));
 
             String line = br.readLine();
 
@@ -41,19 +44,20 @@ public class CustomFileReader implements Reader {
                 line = br.readLine();
             }
 
+            br.close();
         } catch (IOException e) {
             log.error(e.getMessage());
         }
         return result;
     }
 
-    public ArrayList<?> checkExist(File file) throws IOException {
+    public void checkExist(File file) throws IOException {
         if (!file.exists()){
-            System.out.println("Create history file ...");
-            file.createNewFile();
+            Printer.print("Create history file ...");
+            if (!file.createNewFile()) {
+                throw new IOException("Cannot create file history.txt, but it doesn't exist");
+            }
             log.info("Created history file.");
-            return new ArrayList<>();
         }
-        return null;
     }
 }
