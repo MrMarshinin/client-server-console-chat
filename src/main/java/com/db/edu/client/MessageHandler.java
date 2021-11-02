@@ -15,9 +15,9 @@ public class MessageHandler {
     private final DataInputStream input;
     private final DataOutputStream out;
     private final ExecutorService executor = Executors.newFixedThreadPool(1);
-    private boolean isFinished = false;
+    private volatile boolean isFinished = false;
 
-    private Logger logger = LoggerFactory.getLogger(MessageHandler.class);
+    private final Logger logger = LoggerFactory.getLogger(MessageHandler.class);
 
     public MessageHandler(BufferedReader bufferedReader, DataInputStream in, DataOutputStream out) {
         this.input = in;
