@@ -43,5 +43,15 @@ public class AllMessage extends Message {
         return dateTime.toString() + ", " + body + ", " + room + ", " + usernameFrom;
     }
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof AllMessage)) {
+            return false;
+        }
+        AllMessage msg = (AllMessage) obj;
+        return this.body.equals(msg.body) &&
+                this.room.equals(msg.room) &&
+                this.usernameFrom.equals(msg.usernameFrom) &&
+                this.dateTime.equals(msg.dateTime);
+    }
 }
