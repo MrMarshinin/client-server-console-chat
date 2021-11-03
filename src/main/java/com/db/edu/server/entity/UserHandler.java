@@ -1,12 +1,12 @@
 package com.db.edu.server.entity;
 
 import java.io.DataOutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public class UserHandler {
-    private final List<User> users = Collections.synchronizedList(new LinkedList<>());
+    private final List<User> users = Collections.synchronizedList(new ArrayList<>(1000));
 
     public User createUser(DataOutputStream stream) {
         User user = new User(stream, this);
