@@ -7,6 +7,7 @@ import org.fest.assertions.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -46,14 +47,6 @@ public class FileReaderTest {
         file = mock(File.class);
         when(file.exists()).thenReturn(false);
         assertThrows(IOException.class, () -> customFileReader.checkExist(file));
-    }
-
-    @Test
-    public void TestFileExistAndAddRoom() {
-        file = mock(File.class);
-       when(file.exists()).thenReturn(true);
-       customFileReader.readSpecificRoom("room");
-
     }
 
     @Test

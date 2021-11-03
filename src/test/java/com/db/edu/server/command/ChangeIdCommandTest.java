@@ -1,6 +1,7 @@
 package com.db.edu.server.command;
 
 import com.db.edu.server.Notifier;
+import com.db.edu.server.WrongNickException;
 import com.db.edu.server.entity.User;
 import com.db.edu.server.storage.Saver;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +27,7 @@ class ChangeIdCommandTest {
     }
 
     @Test
-    void shouldExecute() {
+    void shouldExecute() throws WrongNickException {
         command = new ChangeIdCommand(id);
         command.execute(saver, notifier, user);
 
@@ -48,9 +49,9 @@ class ChangeIdCommandTest {
     }
 
     @Test
-    void shouldThrowMessageWhenWrongUserName() {
+    void shouldThrowMessageWhenWrongUserName() throws WrongNickException {
         command = new ChangeIdCommand(id);
-        doThrow(new IllegalArgumentException("Nick cannot be empty")).when(user).changeNick(any());
+        doThrow(new WrongNickException("Nick cannot be empty")).when(user).changeNick(any());
         command.execute(saver, notifier, user);
         verify(notifier).sendPersonalMessage("Nick cannot be empty",user);
     }

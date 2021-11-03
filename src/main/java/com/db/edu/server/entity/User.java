@@ -1,5 +1,7 @@
 package com.db.edu.server.entity;
 
+import com.db.edu.server.WrongNickException;
+
 import java.io.DataOutputStream;
 
 public class User {
@@ -29,7 +31,7 @@ public class User {
         return nick;
     }
 
-    public void changeNick(String nick) throws IllegalArgumentException {
+    public void changeNick(String nick) throws WrongNickException {
         handler.changeNick(this, nick);
     }
 

@@ -1,5 +1,7 @@
 package com.db.edu.server.entity;
 
+import com.db.edu.server.WrongNickException;
+
 import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,13 +20,13 @@ public class UserHandler {
         return users;
     }
 
-    public void changeNick(User user, String string) throws IllegalArgumentException {
+    public void changeNick(User user, String string) throws WrongNickException {
         if (string.split(" ").length == 0) {
-            throw new IllegalArgumentException("Nick cannot be empty");
+            throw new WrongNickException("Nick cannot be empty");
         } else if (users.stream().anyMatch(u -> u.getNick().equals(string))) {
-            throw new IllegalArgumentException("This nick already exists");
+            throw new WrongNickException("This nick already exists");
         } else if (string.split(" ").length > 1) {
-            throw new IllegalArgumentException("Nick should be one word");
+            throw new WrongNickException("Nick should be one word");
         } else {
             user.setNick(string);
         }
