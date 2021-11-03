@@ -6,6 +6,7 @@ public class AllMessage extends Message {
     public AllMessage(String body, LocalDateTime dateTime, String username, String room) {
         super(body, dateTime, username, room);
     }
+
     public AllMessage(String line) {
         super();
         String[] arguments = line.split(", ");
@@ -27,18 +28,19 @@ public class AllMessage extends Message {
     }
 
     public String getDecoratedString() {
-        StringBuilder decoratedString = new StringBuilder("");
+        StringBuilder decoratedString = new StringBuilder();
         decoratedString.append(dateTime.toString());
         if (!room.isEmpty() && !room.equals("all")) {
-            decoratedString.append(", " + room);
+            decoratedString.append(", ").append(room);
         }
         if (!usernameFrom.isEmpty()) {
-            decoratedString.append(", " + usernameFrom + ": " + body);
+            decoratedString.append(", ").append(usernameFrom).append(": ").append(body);
         } else {
-            decoratedString.append(", " + body);
+            decoratedString.append(", ").append(body);
         }
         return decoratedString.toString();
     }
+
     public String toString() {
         return dateTime.toString() + ", " + body + ", " + room + ", " + usernameFrom;
     }
@@ -53,5 +55,10 @@ public class AllMessage extends Message {
                 this.room.equals(msg.room) &&
                 this.usernameFrom.equals(msg.usernameFrom) &&
                 this.dateTime.equals(msg.dateTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 }
