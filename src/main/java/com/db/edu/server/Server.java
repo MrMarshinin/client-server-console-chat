@@ -5,7 +5,6 @@ import com.db.edu.server.entity.UserHandler;
 import com.db.edu.server.storage.FileSaver;
 import com.db.edu.server.storage.Saver;
 
-import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
@@ -39,11 +38,15 @@ public class Server {
                 }
             });
             while (!executorService.isShutdown()) {
-                Thread.sleep(1000);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
             }
             handler.shutdown();
             executorService.shutdownNow();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             log.error(e.getMessage());
         }
     }
