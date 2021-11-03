@@ -6,11 +6,12 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 
 public class Printer implements AutoCloseable {
-    private final Logger log = LoggerFactory.getLogger(Printer.class);
-    private final BufferedWriter out = new BufferedWriter(new OutputStreamWriter(System.out, System.getProperty("sun.jnu.encoding")));
+    private static final Logger log = LoggerFactory.getLogger(Printer.class);
+    private final BufferedWriter out;
 
     public Printer() throws UnsupportedEncodingException {
-
+        String property = "sun.jnu.encoding";
+        out = new BufferedWriter(new OutputStreamWriter(System.out, System.getProperty(property)));
     }
 
     public void print(String string) throws IOException {
