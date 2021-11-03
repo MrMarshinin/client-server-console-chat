@@ -5,6 +5,8 @@ import com.db.edu.server.entity.UserHandler;
 import com.db.edu.server.storage.FileSaver;
 import com.db.edu.server.storage.Saver;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.io.IOException;
@@ -37,10 +39,9 @@ public class Server {
                     }
                 }
             });
-            while (!executorService.isShutdown()) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            while (true) {
+                if (bufferedReader.readLine().equals("Exit")) {
                     break;
                 }
             }
