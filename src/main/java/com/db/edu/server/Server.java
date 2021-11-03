@@ -38,12 +38,15 @@ public class Server {
                     }
                 }
             });
-
-            new BufferedReader(new InputStreamReader(System.in)).readLine();
+            while (!executorService.isShutdown()) {
+                Thread.sleep(1000);
+            }
             handler.shutdown();
             executorService.shutdownNow();
         } catch (IOException e) {
             log.error(e.getMessage());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }
