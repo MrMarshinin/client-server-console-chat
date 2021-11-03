@@ -15,6 +15,10 @@ public class SendPersonalMessageCommand implements ChatCommand {
     private String usernameTo;
     private PersonalMessage message;
 
+    public PersonalMessage getMessage(){
+        return message;
+    }
+
     public SendPersonalMessageCommand(String argument) {
         Instant instance = java.time.Instant.ofEpochMilli(System.currentTimeMillis());
         LocalDateTime dateTime = LocalDateTime.ofInstant(instance, ZoneId.of(ZoneId.systemDefault().getId()));

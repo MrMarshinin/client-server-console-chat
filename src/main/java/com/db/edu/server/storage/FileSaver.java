@@ -11,9 +11,8 @@ public class FileSaver implements Saver {
     @Override
     public void save(String message){
         File file = new File("history.txt");
-        try (
-                FileWriter fw = new FileWriter(file,true);
-                BufferedWriter bw = new BufferedWriter(fw)) {
+        try (FileWriter fw = new FileWriter(file,true);
+             BufferedWriter bw = new BufferedWriter(fw)) {
             checkExist(file);
 
             bw.write(message);
