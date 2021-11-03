@@ -17,7 +17,7 @@ public class ConnectionHandler {
     private final Parser parser;
     private final Saver saver;
     private final UserHandler factory;
-    private final int MAX_NUMBER_OF_USER_CONNECTIONS = 1001;
+    private static final int MAX_NUMBER_OF_USER_CONNECTIONS = 1001;
     private final ExecutorService executorService = Executors.newFixedThreadPool(MAX_NUMBER_OF_USER_CONNECTIONS);
 
     private static final Logger log = LoggerFactory.getLogger(ConnectionHandler.class);
