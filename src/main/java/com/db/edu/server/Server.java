@@ -19,7 +19,7 @@ public class Server {
     private static final Logger log = LoggerFactory.getLogger(Server.class);
     private static final int port = 9999;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         Parser parser = new Parser();
         Saver saver = new FileSaver();
@@ -28,7 +28,7 @@ public class Server {
         ConnectionHandler handler = new ConnectionHandler(notifier, parser, saver, factory);
         try (ServerSocket socket = new ServerSocket(port)) {
             executorService.execute(() -> {
-                while (true) {
+                while (!Thread.currentThread().isInterrupted()) {
                     try {
                         Socket connection = socket.accept();
                         handler.handleConnection(connection);
@@ -39,13 +39,9 @@ public class Server {
                 }
             });
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String exitWhenEnterAny = reader.readLine();
-
-            executorService.shutdownNow();
+            new BufferedReader(new InputStreamReader(System.in)).readLine();
             handler.shutdown();
-            Thread.sleep(1000);
-            System.exit(exitWhenEnterAny.equals("exit") ? 0 : -1);
+            executorService.shutdownNow();
         } catch (IOException e) {
             log.error(e.getMessage());
         }

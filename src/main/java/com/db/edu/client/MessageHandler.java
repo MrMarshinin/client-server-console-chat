@@ -35,10 +35,11 @@ public class MessageHandler {
                     Thread.currentThread().interrupt();
                     return;
                 }
+
                 try {
                     printer.print(input.readUTF());
                 } catch (IOException e) {
-                    logger.error("Server closed connection! Type anything to exit.");
+                    logger.error("Server closed connection! Type anything to exit");
                     this.shutdown();
                     isFinished = true;
                     return;
@@ -48,17 +49,23 @@ public class MessageHandler {
     }
 
     public void shutdown() {
-        executor.shutdown();
+        executor.shutdownNow();
     }
 
-    public void handle() throws IOException {
+    public void handle() {
         while (!isFinished) {
-            String command = reader.readLine();
-            if (command.equals("exit") || isFinished) {
-                return;
+            try {
+                String command = reader.readLine();
+                if (command.equals("exit") || isFinished) {
+                    shutdown();
+                    return;
+                }
+                out.writeUTF(command);
+                out.flush();
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+                shutdown();
             }
-            out.writeUTF(command);
-            out.flush();
         }
     }
 }

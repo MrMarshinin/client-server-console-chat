@@ -13,17 +13,18 @@ public class Client {
     private static final Logger log = LoggerFactory.getLogger(Client.class);
 
     public static void main(String[] args) {
-        try (Socket socket = new Socket(HOST, PORT)) {
-            final DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-            final DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+        try (
+                Socket socket = new Socket(HOST, PORT);
+                DataInputStream input = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+                DataOutputStream out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, System.getProperty("sun.jnu.encoding")));
+                Printer printer = new Printer()) {
 
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, System.getProperty("sun.jnu.encoding")));
-
-            final MessageHandler messageHandler = new MessageHandler(reader, input, out, new Printer());
+            final MessageHandler messageHandler = new MessageHandler(reader, input, out, printer);
             messageHandler.handle();
         } catch (IOException e) {
             log.error(e.getMessage());
-            log.info("Ensure server is running before trying to log in");
+            log.info("Cannot connect to server! Ensure server is running.");
         }
     }
 }
