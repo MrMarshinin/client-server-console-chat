@@ -43,10 +43,8 @@ public class Server {
             }
             handler.shutdown();
             executorService.shutdownNow();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             log.error(e.getMessage());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
