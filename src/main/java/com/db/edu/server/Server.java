@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 public class Server {
     private static final Logger log = LoggerFactory.getLogger(Server.class);
-    private static final int port = 9999;
+    private static final int PORT = 9999;
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(1);
@@ -27,7 +27,7 @@ public class Server {
         UserHandler factory = new UserHandler();
         Notifier notifier = new Notifier(factory);
         ConnectionHandler handler = new ConnectionHandler(notifier, parser, saver, factory);
-        try (ServerSocket socket = new ServerSocket(port)) {
+        try (ServerSocket socket = new ServerSocket(PORT)) {
             executorService.execute(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
