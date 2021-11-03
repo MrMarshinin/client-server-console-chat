@@ -56,9 +56,11 @@ public class ConnectionHandler {
             readLoop(input, user);
         } catch (IOException e) {
             log.error(e.getMessage());
+
         } finally {
             try {
                 connection.close();
+                log.info("User disconnected");
             } catch (IOException ioException) {
                 log.error("Tried to close connections with user, but it is already closed.");
             }
