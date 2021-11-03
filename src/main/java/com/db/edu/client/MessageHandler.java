@@ -16,7 +16,6 @@ public class MessageHandler {
     private final DataOutputStream out;
     private final ExecutorService executor = Executors.newFixedThreadPool(1);
     private volatile boolean isFinished = false;
-    private final Printer printer;
 
     private final Logger logger = LoggerFactory.getLogger(MessageHandler.class);
 
@@ -24,7 +23,6 @@ public class MessageHandler {
         this.input = in;
         this.out = out;
         this.reader = bufferedReader;
-        this.printer = printer;
 
         executor.execute(() -> {
             while (true) {
